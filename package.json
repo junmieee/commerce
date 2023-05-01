@@ -28,7 +28,7 @@
     "prettier": "2.8.8"
   },
   "lint-staged": {
-    "*.{js,jsx, ts, tsx}": [
+    "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write",
       "git add"
