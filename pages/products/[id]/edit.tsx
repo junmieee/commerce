@@ -1,7 +1,11 @@
-import ImageGallery from 'react-image-gallery'
 import Carousel from 'nuka-carousel'
 import Image from 'next/image'
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import React from 'react'
+import { useState } from 'react'
+import CustomEditor from 'components/Editor'
+import { useRouter } from 'next/router'
+import { convertFromRaw, EditorState } from 'draft-js'
+import { useEffect } from 'react'
 
 const images = [
   {
@@ -24,16 +28,46 @@ const images = [
   },
 ]
 
-import React from 'react'
-import { useState } from 'react'
-import Head from 'next/head'
-import CustomEditor from 'components/Editor'
-
 const Products = () => {
   const [index, setIndex] = useState(0)
+
+  const router = useRouter()
+  const { id: productId } = router.query
+  const [editorState, setEditorState] = useState<EditorState | undefined>(
+    undefined
+  )
+  const handleSave = () => {
+    alert('save')
+  }
+
+  useEffect(() => {
+    if (productId != null) {
+      fetch(`/api/get-product?id=${productId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.items.contents) {
+            setEditorState(
+              EditorState.createWithContent(
+                convertFromRaw(JSON.parse(data.items.contents))
+              )
+            )
+          } else {
+            setEditorState(EditorState.createEmpty())
+          }
+        })
+    }
+  }, [productId])
+
   return (
     <>
-      <Carousel withoutControls={true} wrapAround speed={10} slideIndex={index}>
+      <Carousel
+        withoutControls={true}
+        wrapAround
+        autoplay
+        animation="fade"
+        speed={10}
+        slideIndex={index}
+      >
         {images.map((item) => (
           <Image
             key={item.original}
@@ -47,12 +81,18 @@ const Products = () => {
       </Carousel>
       <div style={{ display: 'flex' }}>
         {images.map((item, idx) => (
-          <div key={index} onClick={() => setIndex(idx)}>
+          <div key={idx} onClick={() => setIndex(idx)}>
             <Image src={item.original} alt="iamge" width={100} height={60} />
           </div>
         ))}
       </div>
-      <CustomEditor />
+      {editorState != null && (
+        <CustomEditor
+          editorState={editorState}
+          onEditorStateChange={setEditorState}
+          onSave={handleSave}
+        />
+      )}
     </>
   )
 }
