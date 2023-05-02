@@ -19,10 +19,13 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@components/*": [
-        "components/*"
+      "@/styles/*": [
+        "styles/*"
       ]
     },
+    "types": [
+      "@emotion/react/types/css-prop"
+    ],
     "baseUrl": "."
   },
   "include": [
