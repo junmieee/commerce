@@ -6,37 +6,42 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import Button from './button'
 
 const Editor = dynamic<EditorProps>(
-  () => import('react-draft-wysiwyg').then((module) => module.Editor),
+  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
   {
     ssr: false,
   }
 )
 
-interface CustomEditorProps {
-  editorState: EditorState
-  readOnly?: boolean
-  onEditorStateChange?: Dispatch<SetStateAction<EditorState | undefined>>
-  onSave?: () => void
-}
+// interface CustomEditorProps {
+//   editorState: EditorState
+//   readOnly?: boolean
+//   onEditorStateChange?: Dispatch<SetStateAction<EditorState | undefined>>
+//   onSave?: () => void
+// }
 
 export default function CustomEditor({
   editorState,
   readOnly = false,
   onEditorStateChange,
   onSave,
-}: CustomEditorProps) {
+}: {
+  editorState: EditorState
+  readOnly?: boolean
+  onEditorStateChange?: Dispatch<SetStateAction<EditorState | undefined>>
+  onSave?: () => void
+}) {
   return (
     <Wrapper>
       <Editor
         readOnly={readOnly}
         editorState={editorState}
         toolbarHidden={readOnly}
-        toolbarClassName="editorToolbar-hidden"
+        toolbarClassName="toolbar-class"
         wrapperClassName="wrapper-class"
         editorClassName="editor-class"
         onEditorStateChange={onEditorStateChange}
         toolbar={{
-          options: ['initial', 'list', 'textAlign', 'link'],
+          options: ['inline', 'list', 'textAlign', 'link'], // 원하는 옵션 선택
         }}
         localization={{
           locale: 'ko',
