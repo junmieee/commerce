@@ -5,13 +5,6 @@ import { EditorProps, EditorState } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import Button from './button'
 
-interface CustomEditorProps {
-  editorState: EditorState
-  readOnly?: boolean
-  onEditorStateChange?: Dispatch<SetStateAction<EditorState | undefined>>
-  onSave?: () => void
-}
-
 const Editor = dynamic<EditorProps>(
   () => import('react-draft-wysiwyg').then((module) => module.Editor),
   {
@@ -19,12 +12,19 @@ const Editor = dynamic<EditorProps>(
   }
 )
 
-const CustomEditor = ({
+interface CustomEditorProps {
+  editorState: EditorState
+  readOnly?: boolean
+  onEditorStateChange?: Dispatch<SetStateAction<EditorState | undefined>>
+  onSave?: () => void
+}
+
+export default function CustomEditor({
   editorState,
   readOnly = false,
   onEditorStateChange,
   onSave,
-}: CustomEditorProps) => {
+}: CustomEditorProps) {
   return (
     <Wrapper>
       <Editor
@@ -50,5 +50,3 @@ const CustomEditor = ({
 const Wrapper = styled.div`
   padding: 16px;
 `
-
-export default CustomEditor

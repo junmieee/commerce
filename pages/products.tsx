@@ -29,7 +29,7 @@ const images = [
   },
 ]
 
-export default function Products() {
+const Products = () => {
   const [index, setIndex] = useState(0)
 
   const router = useRouter()
@@ -38,41 +38,23 @@ export default function Products() {
     undefined
   )
 
-  useEffect(() => {
-    if (productId != null) {
-      fetch(`/api/get-product?id=${productId}`)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.items.contents) {
-            setEditorState(
-              EditorState.createWithContent(
-                convertFromRaw(JSON.parse(data.items.contents))
-              )
-            )
-          } else {
-            setEditorState(EditorState.createEmpty())
-          }
-        })
-    }
-  }, [productId])
-
-  const handleSave = () => {
-    if (editorState) {
-      fetch(`/api/update-product`, {
-        method: 'POST',
-        body: JSON.stringify({
-          id: String(productId),
-          contents: JSON.stringify(
-            convertToRaw(editorState.getCurrentContent())
-          ),
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          alert('Success')
-        })
-    }
-  }
+  // useEffect(() => {
+  //     if (productId != null) {
+  //         fetch(`/api/get-product?id=${productId}`)
+  //             .then((res) => res.json())
+  //             .then((data) => {
+  //                 if (data.items.contents) {
+  //                     setEditorState(
+  //                         EditorState.createWithContent(
+  //                             convertFromRaw(JSON.parse(data.items.contents))
+  //                         )
+  //                     )
+  //                 } else {
+  //                     setEditorState(EditorState.createEmpty())
+  //                 }
+  //             })
+  //     }
+  // }, [productId])
 
   return (
     <>
@@ -103,12 +85,10 @@ export default function Products() {
         ))}
       </div>
       {editorState != null && (
-        <CustomEditor
-          editorState={editorState}
-          onEditorStateChange={setEditorState}
-          onSave={handleSave}
-        />
+        <CustomEditor editorState={editorState} readOnly={true} />
       )}
     </>
   )
 }
+
+export default Products
