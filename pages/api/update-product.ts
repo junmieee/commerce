@@ -3,11 +3,14 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-async function getProduct(id: number) {
+async function updateProduct(id: number, contents: string) {
   try {
-    const response = await prisma.products.findUnique({
+    const response = await prisma.products.update({
       where: {
         id: id,
+      },
+      data: {
+        contents: contents,
       },
     })
     console.log(response)
@@ -26,15 +29,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const { id } = req.query
-  console.log('req', req)
-
-  if (id == null) {
-    res.status(400).json({ message: `No id` })
+  const { id, contents } = req.body
+  if (id == null || contents == null) {
+    res.status(400).json({ message: `No id or contents` })
     return
   }
   try {
-    const products = await getProduct(Number(id))
+    const products = await updateProduct(Number(id), contents)
     res.status(200).json({ items: products, message: 'Success' })
   } catch (error) {
     console.error(error)

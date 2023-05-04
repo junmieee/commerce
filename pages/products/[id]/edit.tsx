@@ -4,7 +4,7 @@ import React from 'react'
 import { useState } from 'react'
 import CustomEditor from 'components/Editor'
 import { useRouter } from 'next/router'
-import { convertFromRaw, EditorState } from 'draft-js'
+import { convertFromRaw, convertToRaw, EditorState } from 'draft-js'
 import { useEffect } from 'react'
 
 const images = [
@@ -36,9 +36,6 @@ const Products = () => {
   const [editorState, setEditorState] = useState<EditorState | undefined>(
     undefined
   )
-  const handleSave = () => {
-    alert('save')
-  }
 
   useEffect(() => {
     if (productId != null) {
@@ -57,6 +54,32 @@ const Products = () => {
         })
     }
   }, [productId])
+
+  const handleSave = () => {
+    if (editorState) {
+      fetch(`/api/update-product`, {
+        method: 'POST',
+        body: JSON.stringify({
+          id: Number(productId),
+          contents: JSON.stringify(
+            convertToRaw(editorState.getCurrentContent())
+          ),
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.items.contents) {
+            setEditorState(
+              EditorState.createWithContent(
+                convertFromRaw(JSON.parse(data.items.contents))
+              )
+            )
+          } else {
+            setEditorState(EditorState.createEmpty())
+          }
+        })
+    }
+  }
 
   return (
     <>

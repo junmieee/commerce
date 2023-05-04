@@ -1,4 +1,3 @@
-import ImageGallery from 'react-image-gallery'
 import Carousel from 'nuka-carousel'
 import Image from 'next/image'
 const images = [
