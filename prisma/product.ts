@@ -14,7 +14,7 @@ const productData: Prisma.productsCreateInput[] = Array.apply(
   image_url: `https://raw.githubusercontent.com/xiaolin/react-image-gallery/master/static/
     ${(index + 1) % 10 === 0 ? 10 : (index + 1) % 10}.jpg
     `,
-  price: Math.random() * (100000 - 20000) + 20000,
+  price: Math.floor(Math.random() * (100000 - 20000) + 20000),
 }))
 
 async function main() {
