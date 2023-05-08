@@ -4,8 +4,8 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import Image from 'next/image'
 import { useCallback } from 'react'
+import { TAKE } from 'constants/products'
 
-const TAKE = 9
 export default function Products() {
   const [skip, setSkip] = useState(0)
   const [products, setProducts] = useState<products[]>([])
