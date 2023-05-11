@@ -1,81 +1,173 @@
+import { categories, products } from '@prisma/client'
+import React from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import { useRef, useState } from 'react'
-import { useEffect } from 'react'
-import { css } from '@emotion/react'
+import { Input, Pagination, SegmentedControl, Select } from '@mantine/core'
+import { CATEGORY_MAP, FILTERS, TAKE } from 'constants/products'
+import { IconSearch } from '@tabler/icons-react'
+import useDebounce from 'hooks/useDebounce'
+import { useQuery } from '@tanstack/react-query'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
-const inter = Inter({ subsets: ['latin'] })
+export default function Products() {
+  const router = useRouter()
+  const { data: session } = useSession()
+  const [activePage, setPage] = useState(1)
+  const [selectedCategory, setSelectedCategory] = useState<string>('-1')
+  const [selectedFilter, setFilter] = useState<string | null>(FILTERS[0].value)
+  const [keyward, setKeyword] = useState('')
 
-export default function Home() {
-  // const [products, setProducts] = useState<{ id: string, properties: { id: string }[] }[]>([])
+  const debouncedKeyword = useDebounce<string>(keyward)
+
   // useEffect(() => {
-  //   fetch('/api/get-item')
+  //   fetch(`/api/get-categories`)
   //     .then((res) => res.json())
-  //     .then((data) => setProducts(data.items))
+  //     .then((data) => setCategories(data.items))
   // }, [])
 
-  const [products, setProducts] = useState<
-    { id: string; name: string; createdAt: string }[]
-  >([])
+  const { data: categories } = useQuery<
+    { items: categories[] },
+    unknown,
+    categories[]
+  >(
+    [`/api/get-categories`],
+    () => fetch(`/api/get-categories`).then((res) => res.json()),
+    { select: (data) => data.items }
+  )
 
-  useEffect(() => {
-    fetch('/api/get-products')
-      .then((res) => res.json())
-      .then((data) => setProducts(data.items))
-  }, [])
+  // useEffect(() => {
+  //   fetch(`/api/get-products-count?category=${selectedCategory}&contains=${debouncedKeyword}`)
+  //     .then((res) => res.json())
+  //     .then((data) => setTotal(Math.ceil(data.items / TAKE)))
+  // }, [selectedCategory, debouncedKeyword])
 
-  const handleClick = () => {
-    if (inputRef.current === null || inputRef.current.value === '') {
-      alert('name을 넣어주세요')
-      return
+  const { data: total } = useQuery(
+    [
+      `/api/get-products-count?category=${selectedCategory}&contains=${debouncedKeyword}`,
+    ],
+    () =>
+      fetch(
+        `/api/get-products-count?category=${selectedCategory}&contains=${debouncedKeyword}`
+      )
+        .then((res) => res.json())
+        .then((data) => Math.ceil(data.items / TAKE))
+  )
+
+  // useEffect(() => {
+  //   const skip = TAKE * (activePage - 1)
+  //   fetch(
+  //     `/api/get-products?skip=${skip}&take=${TAKE}&category=${selectedCategory}&orderBy=${selectedFilter}&contains=${debouncedKeyword}`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => setProducts(data.items))
+  // }, [activePage, selectedCategory, selectedFilter, debouncedKeyword])
+
+  const { data: products } = useQuery<
+    { items: products[] },
+    unknown,
+    products[]
+  >(
+    [
+      `/api/get-products?skip=${
+        TAKE * (activePage - 1)
+      }&take=${TAKE}&category=${selectedCategory}&orderBy=${selectedFilter}&contains=${debouncedKeyword}`,
+    ],
+    () =>
+      fetch(
+        `/api/get-products?skip=${
+          TAKE * (activePage - 1)
+        }&take=${TAKE}&category=${selectedCategory}&orderBy=${selectedFilter}&contains=${debouncedKeyword}`
+      ).then((res) => res.json()),
+    {
+      select: (data) => data.items,
     }
-    fetch(`/api/add-item?name=${inputRef.current.value}`)
-      .then((res) => res.json())
-      .then((data) => alert(data.message))
+  )
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value)
   }
-  const inputRef = useRef<HTMLInputElement>(null)
 
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <input ref={inputRef} type="text" placeholder="name"></input>
-      <button
-        css={css`
-          background-color: blue;
-        `}
-        onClick={handleClick}
-      >
-        Add Jacket
-      </button>
-      <div>
-        <p>Product List</p>
-        {/* {products?.map((item) => <div key={item.id}>
-          {JSON.stringify(item)}
-          {item.properties &&
-            Object.entries(item.properties).map(([key, value]) => (
-              <button
-                key={key}
-                onClick={() => {
-                  fetch(
-                    `/api/get-detail?pageId=${item.id}&propertyId=${value.id}`
-                  ).then(res => res.json()).then(data => alert(JSON.stringify(data.detail)))
-                }}
-              >
-                {key}</button>
-            ))}
-          <br />
-          <br />
-        </div>)} */}
+    <div className="mt-36 mb-36 ">
+      <div className="mb-4">
+        <Input
+          icon={<IconSearch />}
+          placeholder="Search"
+          value={keyward}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="mb-4">
+        <Select value={selectedFilter} onChange={setFilter} data={FILTERS} />
+      </div>
+      {categories && (
+        <div className="mb-4">
+          <SegmentedControl
+            value={selectedCategory}
+            onChange={setSelectedCategory}
+            data={[
+              {
+                label: 'ALL',
+                value: ' - 1',
+              },
+              ...categories.map((category) => ({
+                label: category.name,
+                value: String(category.id),
+              })),
+            ]}
+            color="dark"
+          />
+        </div>
+      )}
 
-        {products &&
-          products.map((item) => (
-            <div key={item.id}>
-              {item.name}
-              <span>{item.createdAt}</span>
+      {products && (
+        <div className="grid grid-cols-3 gap-5">
+          {products.map((item) => (
+            <div
+              key={item.id}
+              style={{ maxWidth: 310 }}
+              onClick={() =>
+                router.push({
+                  pathname: `/products/${item.id}`,
+                  query: { id: item.id },
+                })
+              }
+            >
+              <Image
+                className="rounded"
+                alt={item.name}
+                src={item.image_url ?? ''}
+                width={310}
+                height={390}
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPk4eapBwAA8gCkI4u+qAAAAABJRU5ErkJggg==
+                "
+              />
+              <div className="flex">
+                <span>{item.name}</span>
+                <span className="ml-auto">
+                  {item.price.toLocaleString('ko-KR')}원
+                </span>
+              </div>
+              <span className="text-zinc-400">
+                {CATEGORY_MAP[item.category_id - 1]}
+              </span>
             </div>
           ))}
+        </div>
+      )}
+      <div className="w-full flex mt-5">
+        {total && (
+          <Pagination
+            className="m-auto"
+            value={activePage}
+            onChange={setPage}
+            total={total}
+          />
+        )}
+        ;
       </div>
-    </main>
+    </div>
   )
 }

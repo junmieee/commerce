@@ -1,10 +1,11 @@
 import React from 'react'
+import styled from '@emotion/styled'
 
-type ButtonProps = {
-  children: React.ReactNode
-  onClick?: () => void
-}
+const Button = styled.button`
+  padding: 16px;
+  border-radius: 8px;
+  background-color: black;
+  color: white;
+`
 
-export default function Button({ children, onClick }: ButtonProps) {
-  return <div onClick={onClick}>{children}</div>
-}
+export default Button
