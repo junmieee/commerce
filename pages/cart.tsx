@@ -1,7 +1,12 @@
 import styled from '@emotion/styled'
-import { Cart, products } from '@prisma/client'
+import { Cart, OrderItem, products } from '@prisma/client'
 import { IconRefresh, IconShoppingCart, IconX } from '@tabler/icons-react'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query'
 import Button from 'components/Button'
 import { CountControl } from 'components/CountControl'
 import { CATEGORY_MAP } from 'constants/products'
@@ -10,6 +15,7 @@ import { Router, useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useMemo } from 'react'
 import { useEffect } from 'react'
+import { ORDER_QUERY_KEY } from './my'
 
 interface CartItem extends Cart {
   name: string
@@ -17,19 +23,17 @@ interface CartItem extends Cart {
   image_url: string
 }
 
-const CART_QUERY_KEY = '/api/get-cart'
+export const CART_QUERY_KEY = '/api/get-cart'
 
 export default function CartPage() {
+  const queryClient = useQueryClient()
   const router = useRouter()
-  const { data } = useQuery<
-    { items: CartItem[] },
-    unknown,
-    products[],
-    CartItem[]
-  >([CART_QUERY_KEY], () =>
-    fetch(CART_QUERY_KEY)
-      .then((res) => res.json())
-      .then((data) => data.items)
+  const { data } = useQuery<CartItem[], unknown, CartItem[], [string]>(
+    [CART_QUERY_KEY],
+    () =>
+      fetch(CART_QUERY_KEY)
+        .then((res) => res.json())
+        .then((data) => data.items)
   )
 
   const diliveryAmount = data && data.length > 0 ? 5000 : 0
@@ -56,8 +60,43 @@ export default function CartPage() {
     }
   )
 
+  const { mutate: addOrder } = useMutation<
+    unknown,
+    unknown,
+    Omit<OrderItem, 'id'>[],
+    any
+  >(
+    (items) =>
+      fetch(`/api/add-order`, {
+        method: 'POST',
+        body: JSON.stringify({ items }),
+      })
+        .then((data) => data.json())
+        .then((res) => res.items),
+    {
+      onMutate: () => {
+        queryClient.invalidateQueries([ORDER_QUERY_KEY])
+      },
+      onSuccess: () => {
+        router.push('/my')
+      },
+    }
+  )
+
   const handleOrder = () => {
     //TODO: 주문하기 기능 구현
+
+    if (data == null) {
+      return
+    }
+    addOrder(
+      data.map((cart) => ({
+        productId: cart.productId,
+        price: cart.price,
+        amount: cart.amount,
+        quantity: cart.quantity,
+      }))
+    )
     alert(`장바구니에 담긴 것들 ${JSON.stringify(data)} 주문`)
   }
 
@@ -169,7 +208,7 @@ const Item = (props: CartItem) => {
     }
   }, [quantity, props.price])
 
-  const { mutate } = useMutation<unknown, unknown, Cart, any>(
+  const { mutate: updateCart } = useMutation<unknown, unknown, Cart, any>(
     (item) =>
       fetch(`/api/update-cart`, {
         method: 'POST',
@@ -202,8 +241,43 @@ const Item = (props: CartItem) => {
     }
   )
 
-  const handleDelete = () => {
+  const { mutate: deleteCart } = useMutation<unknown, unknown, number, any>(
+    (id) =>
+      fetch(`/api/delete-cart`, {
+        method: 'POST',
+        body: JSON.stringify({ id }),
+      })
+        .then((data) => data.json())
+        .then((res) => res.items),
+    {
+      onMutate: async (id) => {
+        // (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries([CART_QUERY_KEY])
+
+        // Snapshot the previous value
+        const previous = queryClient.getQueryData([CART_QUERY_KEY])
+
+        // Optimistically update to the new value
+        queryClient.setQueryData<Cart[]>([CART_QUERY_KEY], (old) =>
+          old?.filter((c) => c.id !== id)
+        )
+        // Return a context object with the snapshotted value
+        return { previous }
+      },
+      onError: (error, _, context) => {
+        queryClient.setQueriesData([CART_QUERY_KEY], context.previous)
+        console.error(error)
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries([CART_QUERY_KEY])
+      },
+    }
+  )
+
+  const handleDelete = async () => {
     //TODO: 장바구니에서 삭제 기능 구현
+
+    await deleteCart(props.id)
     alert(`장바구니${props.name} 삭제`)
   }
 
@@ -213,7 +287,7 @@ const Item = (props: CartItem) => {
       return
     }
     //TODO: 장바구니에서 삭제 기능 구현
-    mutate({ ...props, quantity: quantity, amount: props.price + quantity })
+    updateCart({ ...props, quantity: quantity, amount: props.price * quantity })
   }
 
   return (

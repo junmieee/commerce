@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { convertFromRaw, convertToRaw, EditorState } from 'draft-js'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
-import { Cart, products } from '@prisma/client'
+import { Cart, OrderItem, products } from '@prisma/client'
 import { format } from 'date-fns'
 import { CATEGORY_MAP } from 'constants/products'
 import { useEffect } from 'react'
@@ -16,6 +16,8 @@ import { Button } from '@mantine/core'
 import { IconHeart, IconHeartbeat, IconShoppingCart } from '@tabler/icons-react'
 import { useSession } from 'next-auth/react'
 import { CountControl } from 'components/CountControl'
+import { CART_QUERY_KEY } from 'pages/cart'
+import { ORDER_QUERY_KEY } from 'pages/my'
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const product = await fetch(
@@ -99,13 +101,45 @@ export default function Products(props: {
     unknown,
     Omit<Cart, 'id' | 'userId'>,
     any
-  >((item) =>
-    fetch(`/api/add-cart`, {
-      method: 'POST',
-      body: JSON.stringify({ item }),
-    })
-      .then((data) => data.json())
-      .then((res) => res.items)
+  >(
+    (item) =>
+      fetch(`/api/add-cart`, {
+        method: 'POST',
+        body: JSON.stringify({ item }),
+      })
+        .then((data) => data.json())
+        .then((res) => res.items),
+    {
+      onMutate: () => {
+        queryClient.invalidateQueries([CART_QUERY_KEY])
+      },
+      onSuccess: () => {
+        router.push('/cart')
+      },
+    }
+  )
+
+  const { mutate: addOrder } = useMutation<
+    unknown,
+    unknown,
+    Omit<OrderItem, 'id'>[],
+    any
+  >(
+    (items) =>
+      fetch(`/api/add-order`, {
+        method: 'POST',
+        body: JSON.stringify({ items }),
+      })
+        .then((data) => data.json())
+        .then((res) => res.items),
+    {
+      onMutate: () => {
+        queryClient.invalidateQueries([ORDER_QUERY_KEY])
+      },
+      onSuccess: () => {
+        router.push('/my')
+      },
+    }
   )
 
   const product = props.product
@@ -121,18 +155,31 @@ export default function Products(props: {
   const isWished =
     wishlist != null && productId != null ? wishlist.includes(productId) : false
 
-  const validate = async (type: 'cart' | 'order') => {
+  const validate = (type: 'cart' | 'order') => {
     if (quantity == null) {
       alert('최소 수량을 선택하세요')
       return
     }
+
+    if (type == 'cart') {
+      addCart({
+        productId: product.id,
+        quantity: quantity,
+        amount: product.price * quantity,
+      })
+    }
+
+    if (type == 'order') {
+      addOrder([
+        {
+          productId: product.id,
+          quantity: quantity,
+          price: product.price,
+          amount: product.price * quantity,
+        },
+      ])
+    }
     //TODO: 장바구니에 등록하는 기능 추가
-    await addCart({
-      productId: product.id,
-      quantity: quantity,
-      amount: product.price * quantity,
-    })
-    router.push('/cart')
   }
 
   return (
@@ -229,6 +276,24 @@ export default function Products(props: {
                 찜하기
               </Button>
             </div>
+            <Button
+              style={{ backgroundColor: 'black' }}
+              radius="xl"
+              size="md"
+              styles={{
+                root: { paddingRight: 14, height: 48 },
+              }}
+              onClick={() => {
+                if (session == null) {
+                  alert('로그인이 필요해요')
+                  router.push('/auth/login')
+                  return
+                }
+                validate('order')
+              }}
+            >
+              구매하기
+            </Button>
             <div className="text-sm text-zinc-300">
               등록: {format(new Date(product.createdAt), 'yyyy년 m월 d일')}
             </div>
