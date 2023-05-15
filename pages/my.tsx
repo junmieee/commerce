@@ -5,7 +5,7 @@ import { IconRefresh, IconShoppingCart, IconX } from '@tabler/icons-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Button from 'components/Button'
 import { CountControl } from 'components/CountControl'
-import { CATEGORY_MAP } from 'constants/products'
+import { CATEGORY_MAP, ORDER_STATUS_MAP } from 'constants/products'
 import Image from 'next/image'
 import { Router, useRouter } from 'next/router'
 import { format } from 'date-fns'
@@ -21,20 +21,6 @@ interface OrderItemDetail extends OrderItem {
 interface OrderDetail extends Orders {
   orderItems: OrderItemDetail[]
 }
-
-const ORDER_STATUS_MAP = [
-  '주문취소',
-  '주문대기',
-  '결제대기',
-  '결제완료',
-  '배송대기',
-  '배송중',
-  '배송완료',
-  '환불대기',
-  '환불완료',
-  '반품대기',
-  '반품완료',
-]
 
 export const ORDER_QUERY_KEY = '/api/get-order'
 
@@ -74,6 +60,64 @@ export default function MyPage() {
 }
 
 const DetailItem = (props: OrderDetail) => {
+  const queryClient = useQueryClient()
+
+  const { mutate: updateOrderStatus } = useMutation<
+    unknown,
+    unknown,
+    number,
+    any
+  >(
+    (status) =>
+      fetch(`/api/update-order-status`, {
+        method: 'POST',
+        body: JSON.stringify({
+          id: props.id,
+          status: status,
+          userId: props.userId,
+        }),
+      })
+        .then((data) => data.json())
+        .then((res) => res.items),
+    {
+      onMutate: async (status) => {
+        // (so they don't overwrite our optimistic update)
+        await queryClient.cancelQueries([ORDER_QUERY_KEY])
+
+        // Snapshot the previous value
+        const previous = queryClient.getQueryData([ORDER_QUERY_KEY])
+
+        // Optimistically update to the new value
+        queryClient.setQueryData<Cart[]>([ORDER_QUERY_KEY], (old) =>
+          old?.map((c) => {
+            if (c.id === props.id) {
+              return { ...c, status: status }
+            }
+            return c
+          })
+        )
+        // Return a context object with the snapshotted value
+        return { previous }
+      },
+      onError: (error, _, context) => {
+        queryClient.setQueriesData([ORDER_QUERY_KEY], context.previous)
+        console.error(error)
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries([ORDER_QUERY_KEY])
+      },
+    }
+  )
+
+  const handlePayment = () => {
+    // 주문 상태를 5로 변경
+    updateOrderStatus(5)
+  }
+
+  const handleCancel = () => {
+    //주문상태를 -1로 변경
+    updateOrderStatus(-1)
+  }
   return (
     <div
       className="w-full flex flex-col p-4 rounded-md"
@@ -83,7 +127,7 @@ const DetailItem = (props: OrderDetail) => {
         <Badge color={props.status === -1 ? 'red' : ''} className="mb-2">
           {ORDER_STATUS_MAP[props.status + 1]}
         </Badge>
-        <IconX className="ml-auto" />
+        <IconX className="ml-auto" onClick={handleCancel} />
       </div>
       {props.orderItems.map((orderItem, idx) => (
         <Item key={idx} {...orderItem} />
@@ -110,7 +154,10 @@ const DetailItem = (props: OrderDetail) => {
             주문 일자:{' '}
             {format(new Date(props.createdAt), 'yyyy년 M월 d일 HH:mm:ss')}
           </span>
-          <Button style={{ backgroundColor: 'black', color: 'white' }}>
+          <Button
+            style={{ backgroundColor: 'black', color: 'white' }}
+            onClick={handlePayment}
+          >
             결제 처리
           </Button>
         </div>

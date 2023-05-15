@@ -11,7 +11,7 @@ async function addOrder(
   orderInfo?: { reciever: string; address: string; phoneNumber: string }
 ) {
   //orderItem들을 만든다.
-  //만들어진 orderItems를 포함한 Order를 만ㅡ다.
+  //만들어진 orderItemIds를 포함한 Order를 만드ㄴ다.
   try {
     let orderItemIds = []
     for (const item of items) {
@@ -32,6 +32,7 @@ async function addOrder(
         status: 0,
       },
     })
+    return response
   } catch (error) {
     console.error(error)
   }
