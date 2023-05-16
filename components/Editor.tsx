@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import React, { Dispatch, SetStateAction } from 'react'
 import { EditorProps, EditorState } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import Button from './button'
+import Button from './Button'
 
 const Editor = dynamic<EditorProps>(
   () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
@@ -23,15 +23,17 @@ export default function CustomEditor({
   editorState,
   readOnly = false,
   onEditorStateChange,
+  noPadding = false,
   onSave,
 }: {
   editorState: EditorState
   readOnly?: boolean
   onEditorStateChange?: Dispatch<SetStateAction<EditorState | undefined>>
+  noPadding?: boolean
   onSave?: () => void
 }) {
   return (
-    <Wrapper>
+    <Wrapper readOnly={readOnly} noPadding={noPadding}>
       <Editor
         readOnly={readOnly}
         editorState={editorState}
@@ -52,6 +54,8 @@ export default function CustomEditor({
   )
 }
 
-const Wrapper = styled.div`
-  padding: 16px;
+const Wrapper = styled.div<{ readOnly: boolean; noPadding: boolean }>`
+  ${(props) => (props.noPadding ? '' : 'padding: 16px;')};
+  ${(props) =>
+    props.readOnly ? '' : 'border: 1px solid black; border-radius: 8px;'}
 `
