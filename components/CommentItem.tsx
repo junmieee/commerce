@@ -7,6 +7,7 @@ import CustomEditor from './Editor'
 import { EditorState } from 'draft-js'
 import { convertFromRaw } from 'draft-js'
 import dynamic from 'next/dynamic'
+import AutoSizeImage from './AutoSizeImage'
 
 export default function CommentItem({ item }: { item: CommentItemType }) {
   const parsedContent = item.contents ? JSON.parse(item.contents) : null
@@ -42,6 +43,11 @@ export default function CommentItem({ item }: { item: CommentItemType }) {
           noPadding
         />
         {/* <div>{textContent}</div> */}
+      </div>
+      <div style={{ display: 'flex' }}>
+        {item.images?.split(',').map((image, idx) => (
+          <AutoSizeImage key={idx} src={image} size={150} />
+        ))}
       </div>
     </Wrapper>
   )
