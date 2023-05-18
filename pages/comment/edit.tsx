@@ -46,7 +46,7 @@ export default function CommentEdit() {
         }),
       })
         .then((res) => res.json())
-        .then((data) => {
+        .then(() => {
           alert('Success')
           router.back()
         })

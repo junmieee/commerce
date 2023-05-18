@@ -14,19 +14,19 @@ async function getComments(productId: number) {
     })
     console.log('orderItems', orderItems)
 
-    let response = []
-    //찾은 orderItemId를 기반으로 Comment를 조회한다.
+    const response = []
+    // 찾은 orderItemId를 기반으로 Comment를 조회한다.
     for (const orderItem of orderItems) {
-      const res = await prisma.comment.findMany({
+      const res = await prisma.comment.findUnique({
         where: {
           orderItemId: orderItem.id,
         },
       })
-      console.log('res:', res)
-      response.push({ ...orderItem, ...res })
+      if (res) {
+        response.push({ ...orderItem, ...res })
+      }
     }
     console.log('comment:', response)
-
     return response
   } catch (error) {
     console.error(error)
@@ -49,10 +49,10 @@ export default async function handler(
   }
 
   try {
-    const cart = await getComments(Number(productId))
-    res.status(200).json({ items: cart, message: 'Success' })
+    const wishlist = await getComments(Number(productId))
+    res.status(200).json({ items: wishlist, message: 'Success' })
   } catch (error) {
     console.error(error)
-    res.status(400).json({ message: `Failed` })
+    res.status(400).json({ message: 'Failed' })
   }
 }

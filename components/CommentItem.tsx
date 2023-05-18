@@ -4,10 +4,13 @@ import { CommentItemType } from 'pages/products/[id]'
 import { format } from 'date-fns'
 import React from 'react'
 import CustomEditor from './Editor'
-import { EditorState } from 'react-draft-wysiwyg'
+import { EditorState } from 'draft-js'
 import { convertFromRaw } from 'draft-js'
+import dynamic from 'next/dynamic'
 
 export default function CommentItem({ item }: { item: CommentItemType }) {
+  const parsedContent = item.contents ? JSON.parse(item.contents) : null
+  const textContent = parsedContent ? parsedContent.blocks[0].text : ''
   return (
     <Wrapper>
       <div>
@@ -23,20 +26,22 @@ export default function CommentItem({ item }: { item: CommentItemType }) {
               ))}
             </div>
             <span className="text-zinc-300 text-xs">
-              {item.price.toLocaleString('ko-kr')} 원 +{item.quantity} 개 ={' '}
-              {item.amount.toLocaleString('ko-kr')} 원 +
+              {item.price.toLocaleString('ko-kr')} 원 + {item.quantity} 개 ={' '}
+              {item.amount.toLocaleString('ko-kr')} 원
             </span>
           </div>
           <p className="text-zinc-500 ml-auto">
-            {/* {format(new Date(item.updatedAt), 'yyyy년 M월 d일')} */}
+            {format(new Date(item.updatedAt), 'yyyy년 M월 d일')}
           </p>
         </div>
-        {/* <CustomEditor
-                    editorState={EditorState.createWithContent(
-                        convertFromRaw(JSON.parse(item.contents ?? ''))
-                    )} readOnly
-                    noPadding
-                /> */}
+        <CustomEditor
+          editorState={EditorState.createWithContent(
+            convertFromRaw(JSON.parse(item.contents ?? ''))
+          )}
+          readOnly
+          noPadding
+        />
+        {/* <div>{textContent}</div> */}
       </div>
     </Wrapper>
   )

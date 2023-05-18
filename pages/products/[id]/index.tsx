@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { convertFromRaw, convertToRaw, EditorState } from 'draft-js'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
-import { Cart, OrderItem, products } from '@prisma/client'
+import { Cart, Comment, OrderItem, products } from '@prisma/client'
 import { format } from 'date-fns'
 import { CATEGORY_MAP } from 'constants/products'
 import { useEffect } from 'react'
@@ -231,6 +231,7 @@ export default function Products(props: {
               {props.comments &&
                 props.comments.map((comment, idx) => (
                   <CommentItem key={idx} item={comment} />
+                  // <div key={idx}>{comment.rate}</div>
                 ))}
             </div>
           </div>
