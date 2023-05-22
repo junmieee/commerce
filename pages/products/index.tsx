@@ -48,7 +48,7 @@ export default function Products() {
                 </span>
               </div>
               <span className="text-zinc-400">
-                {item.category_id === 1 && '의류'}
+                {item.category_id === 0 && '의류'}
               </span>
             </div>
           ))}

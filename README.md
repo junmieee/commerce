@@ -2,6 +2,19 @@
 
 ## 프로젝트의 실행 방법
 
+1. 저장소를 클론
+
+git clone https://github.com/junmieee/commerce.git
+
+
+2. 필요한 패키지를 설치
+
+npm install
+
+3. 개발 서버 실행
+npm start
+
+
 
 <br/>
 
@@ -9,18 +22,24 @@
 
 
 - demo
-
-
-![화면-기록-2023-04-15-오후-7 44 25](https://user-images.githubusercontent.com/76501504/232209965-4fc664c6-b40d-437a-bb75-9ab6974ec4ad.gif)
+![화면-기록-2023-04-15-오후-7 44 25]()
 
 
 <br/>
 
 ## 기술 스택
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"><img src="https://img.shields.io/badge/Planet Scale-000000?style=for-the-badge&logo=planetscale&logoColor=white">
 
+* 프론트엔드
 
+<img src="https://img.shields.io/badge/Next.js-3178C6?style=for-the-badge&logo=nextjs&logoColor=white"><img src="https://img.shields.io/badge/Planet Scale-000000?style=for-the-badge&logo=planetscale&logoColor=white">
+
+<img src="https://img.shields.io/badge/Typecript-3178C6?style=for-the-badge&logo=nextjs&logoColor=white"><img src="https://img.shields.io/badge/Planet Scale-3178C6?style=for-the-badge&logo=planetscale&logoColor=white">
 <br/>
+
+
+백엔드 
+
+
 
 ## 프로젝트 구조
 

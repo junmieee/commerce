@@ -106,7 +106,7 @@ const tShirt = [
     name: 'T-Shirt 1',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 5,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -115,7 +115,7 @@ const tShirt = [
     name: 'T-Shirt 2',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 5,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -124,7 +124,7 @@ const tShirt = [
     name: 'T-Shirt 3',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 5,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -133,7 +133,7 @@ const tShirt = [
     name: 'T-Shirt 4',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 5,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -142,7 +142,7 @@ const tShirt = [
     name: 'T-Shirt 5',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 5,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -151,7 +151,7 @@ const tShirt = [
     name: 'T-Shirt 6',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 5,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -160,7 +160,7 @@ const tShirt = [
     name: 'T-Shirt 7',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 5,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -169,7 +169,7 @@ const tShirt = [
     name: 'T-Shirt 8',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 5,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -178,7 +178,7 @@ const tShirt = [
     name: 'T-Shirt 9',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 5,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -187,7 +187,7 @@ const tShirt = [
     name: 'T-Shirt 10',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 5,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -199,7 +199,7 @@ const pants = [
     name: 'Pants 1',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 3,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -208,7 +208,7 @@ const pants = [
     name: 'Pants 2',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 3,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -217,7 +217,7 @@ const pants = [
     name: 'Pants 3',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 3,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -226,7 +226,7 @@ const pants = [
     name: 'Pants 4',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 3,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -235,7 +235,7 @@ const pants = [
     name: 'Pants 5',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 3,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -244,7 +244,7 @@ const pants = [
     name: 'Pants 6',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 3,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -253,7 +253,7 @@ const pants = [
     name: 'Pants 7',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 3,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -262,7 +262,7 @@ const pants = [
     name: 'Pants 8',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 3,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -271,7 +271,7 @@ const pants = [
     name: 'Pants 9',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 3,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -280,7 +280,7 @@ const pants = [
     name: 'Pants 10',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 2,
+    category_id: 3,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -292,7 +292,7 @@ const cap = [
     name: 'Cap 1',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 3,
+    category_id: 4,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -301,7 +301,7 @@ const cap = [
     name: 'Cap 2',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 3,
+    category_id: 4,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -310,7 +310,7 @@ const cap = [
     name: 'Cap 3',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 3,
+    category_id: 4,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -319,7 +319,7 @@ const cap = [
     name: 'Cap 4',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 3,
+    category_id: 4,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -328,7 +328,7 @@ const cap = [
     name: 'Cap 5',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 3,
+    category_id: 4,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -337,7 +337,7 @@ const cap = [
     name: 'Cap 6',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 3,
+    category_id: 4,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -346,7 +346,7 @@ const cap = [
     name: 'Cap 7',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 3,
+    category_id: 4,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -355,7 +355,7 @@ const cap = [
     name: 'Cap 8',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 3,
+    category_id: 4,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -364,7 +364,7 @@ const cap = [
     name: 'Cap 9',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 3,
+    category_id: 4,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -373,7 +373,7 @@ const cap = [
     name: 'Cap 10',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 3,
+    category_id: 4,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -385,7 +385,7 @@ const hoodie = [
     name: 'Hoodie 1',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 4,
+    category_id: 2,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -394,7 +394,7 @@ const hoodie = [
     name: 'Hoodie 2',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 4,
+    category_id: 2,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -403,7 +403,7 @@ const hoodie = [
     name: 'Hoodie 3',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 4,
+    category_id: 2,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -412,7 +412,7 @@ const hoodie = [
     name: 'Hoodie 4',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 4,
+    category_id: 2,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -421,7 +421,7 @@ const hoodie = [
     name: 'Hoodie 5',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 4,
+    category_id: 2,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -430,7 +430,7 @@ const hoodie = [
     name: 'Hoodie 6',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 4,
+    category_id: 2,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -439,7 +439,7 @@ const hoodie = [
     name: 'Hoodie 7',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 4,
+    category_id: 2,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -448,7 +448,7 @@ const hoodie = [
     name: 'Hoodie 8',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 4,
+    category_id: 2,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -457,7 +457,7 @@ const hoodie = [
     name: 'Hoodie 9',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 4,
+    category_id: 2,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -466,7 +466,7 @@ const hoodie = [
     name: 'Hoodie 10',
     contents:
       '{"blocks":[{"key":"eee6o","text": "본 제품은 오가닉 소재입니다.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}',
-    category_id: 4,
+    category_id: 2,
     image_url:
       'https://cdn.shopify.com/s/files/1/0561/7470/6753/products/science-beakers-blue-light_480x.jpg?v=1654828801',
     price: getRandom(300000, 100000),
@@ -475,14 +475,14 @@ const hoodie = [
 
 const productData: Prisma.productsCreateInput[] = [
   ...sneakers,
-  ...tShirt,
+  ...hoodie,
   ...pants,
   ...cap,
-  ...hoodie,
+  ...tShirt,
 ]
 
 async function main() {
-  const CATEGORIES = ['SNEAKERS', 'T-SHIRT', 'PANTS', 'CAP', 'HOODIE']
+  const CATEGORIES = ['SNEAKERS', 'HOODIE', 'PANTS', 'CAP', 'T-Shirt']
   CATEGORIES.forEach(async (c, i) => {
     const product = await prisma.categories.upsert({
       where: {

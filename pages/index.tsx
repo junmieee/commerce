@@ -109,7 +109,7 @@ export default function Products() {
             data={[
               {
                 label: 'ALL',
-                value: ' - 1',
+                value: ' -1',
               },
               ...categories.map((category) => ({
                 label: category.name,
