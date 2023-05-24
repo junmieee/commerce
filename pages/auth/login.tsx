@@ -13,7 +13,6 @@ export default function Login() {
       }}
     >
       <GoogleLogin />
-      <KakaoLogin />
     </div>
   )
 }
