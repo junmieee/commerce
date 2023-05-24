@@ -9,6 +9,7 @@ import useDebounce from 'hooks/useDebounce'
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import styled from '@emotion/styled'
 
 export default function Products() {
   const router = useRouter()
@@ -91,7 +92,7 @@ export default function Products() {
   return (
     <div className="mt-36 mb-36 ">
       <div className="mb-4">
-        <Input
+        <SearchInput
           icon={<IconSearch />}
           placeholder="Search"
           value={keyward}
@@ -171,3 +172,10 @@ export default function Products() {
     </div>
   )
 }
+
+const SearchInput = styled(Input)`
+  input:focus {
+    border-color: #4c4c4c;
+    box-shadow: 0 0 0 2px rgba(76, 76, 76, 0.3);
+  }
+`

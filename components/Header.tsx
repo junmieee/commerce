@@ -8,20 +8,43 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
+import styled from '@emotion/styled'
+
+const StyledIcon = styled.div`
+  display: inline-block;
+  margin-right: 4px;
+  cursor: pointer;
+
+  &:hover {
+    svg {
+      fill: #ecf0f1;
+    }
+  }
+
+  &:focus {
+    svg {
+      fill: #000;
+    }
+  }
+`
 
 export default function Header() {
   const { data: session } = useSession()
   const router = useRouter()
+
   return (
     <div className="mt-12 mb-12">
       <div className="w-full flex h-50 items-center">
-        <IconHome onClick={() => router.push('/')} />
+        <StyledIcon onClick={() => router.push('/')}>
+          <IconHome />
+        </StyledIcon>
         <span className="m-auto" />
-        <IconHeart className="mr-4" onClick={() => router.push('/wishlist')} />
-        <IconShoppingCart
-          className="mr-4"
-          onClick={() => router.push('/cart')}
-        />
+        <StyledIcon className="mr-4" onClick={() => router.push('/wishlist')}>
+          <IconHeart />
+        </StyledIcon>
+        <StyledIcon className="mr-4" onClick={() => router.push('/cart')}>
+          <IconShoppingCart />
+        </StyledIcon>
         {session ? (
           <Image
             src={session.user?.image}
@@ -32,7 +55,9 @@ export default function Header() {
             onClick={() => router.push('/my')}
           />
         ) : (
-          <IconUser onClick={() => router.push('/auth/login')} />
+          <StyledIcon onClick={() => router.push('/auth/login')}>
+            <IconUser />
+          </StyledIcon>
         )}
       </div>
     </div>

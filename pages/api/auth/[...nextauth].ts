@@ -3,7 +3,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
 import { CLIENT_ID, CLIENT_SECRET } from 'constants/googleAuth'
-
+import KaKaoProvider from 'next-auth/providers/kakao'
 // 전역적으로 PrismaClient 인스턴스 생성
 const prisma = new PrismaClient()
 
@@ -11,6 +11,10 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
+      clientId: CLIENT_ID,
+      clientSecret: CLIENT_SECRET,
+    }),
+    KaKaoProvider({
       clientId: CLIENT_ID,
       clientSecret: CLIENT_SECRET,
     }),

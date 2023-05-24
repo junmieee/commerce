@@ -1,4 +1,5 @@
 import GoogleLogin from 'components/GoogleLogin'
+import KakaoLogin from 'components/KakaoLogin'
 import React from 'react'
 
 export default function Login() {
@@ -12,6 +13,7 @@ export default function Login() {
       }}
     >
       <GoogleLogin />
+      <KakaoLogin />
     </div>
   )
 }
