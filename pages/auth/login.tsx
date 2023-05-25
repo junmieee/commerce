@@ -3,6 +3,11 @@ import KakaoLogin from 'components/KakaoLogin'
 import React from 'react'
 
 export default function Login() {
+  function kakaoLogin() {
+    window.Kakao.Auth.authorize({
+      redirectUri: 'http://localhost:3000/kakao',
+    })
+  }
   return (
     <div
       style={{
@@ -13,6 +18,7 @@ export default function Login() {
       }}
     >
       <GoogleLogin />
+      <KakaoLogin title="카카오 로그인" onClickBtn={kakaoLogin} />
     </div>
   )
 }
