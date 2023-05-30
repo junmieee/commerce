@@ -1,23 +1,43 @@
 import { useSession, signIn, signOut } from 'next-auth/react'
-import React from 'react'
-import Image from 'next/image'
 import Button from './Button'
 
-interface KakaoLoginProps {
+interface KakaoLoginType {
   title: string
   onClickBtn: () => void
 }
 
-export default function KakaoLogin({ title, onClickBtn }: KakaoLoginProps) {
+export default function KakaoLogin({ title, onClickBtn }: KakaoLoginType) {
+  // function kakaoLogin() {
+  //   window.Kakao.Auth.authorize({
+  //     redirectUri: 'http://localhost:3000/auth/callback/kakao',
+  //   })
+  // }
+  const { data: session } = useSession()
   return (
-    <div style={{ width: '100px', height: 'auto' }}>
-      <Image
-        src="/image/kakao_login_medium_narrow.png"
-        alt={title}
-        width={100}
-        height={50}
-      />
-      <Button onClick={onClickBtn}>{title}</Button>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {session ? (
+        <div>
+          Signed in as {session.user?.email} <br />
+          <Button
+            onClick={() => {
+              // console.log("session id:", session.id);
+              signOut({
+                redirect: true,
+                callbackUrl: `http://localhost:3000/api/auth/serverlogout?userId=${session.id}`,
+              })
+            }}
+          >
+            Sign out
+          </Button>
+        </div>
+      ) : (
+        <div>
+          Not signed in <br />
+          <Button onClick={() => signIn('kakao', { callbackUrl: '/user' })}>
+            KaKo Sign in
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

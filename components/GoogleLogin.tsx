@@ -2,6 +2,11 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 import Button from './Button'
 
 export default function GoogleLogin() {
+  // function kakaoLogin() {
+  //   window.Kakao.Auth.authorize({
+  //     redirectUri: 'http://localhost:3000/auth/callback/kakao',
+  //   })
+  // }
   const { data: session } = useSession()
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -13,7 +18,7 @@ export default function GoogleLogin() {
       ) : (
         <div>
           Not signed in <br />
-          <Button onClick={() => signIn()}>Sign in</Button>
+          <Button onClick={() => signIn()}>Google Sign in</Button>
         </div>
       )}
     </div>
