@@ -14,7 +14,7 @@ const Kakao: NextPage = () => {
   const loginHandler = useCallback(
     async (code: string | string[]) => {
       // 백엔드에 전송
-      const response: ResponseType = await fetch('/api/users/kakao-login', {
+      const response: ResponseType = await fetch('/api/auth/kakao-login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

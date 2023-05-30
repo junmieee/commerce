@@ -5,7 +5,7 @@ import React from 'react'
 export default function Login() {
   function kakaoLogin() {
     window.Kakao.Auth.authorize({
-      redirectUri: 'http://localhost:3000/kakao',
+      redirectUri: 'http://localhost:3000/auth/kakao',
     })
   }
   return (

@@ -10,8 +10,13 @@ interface KakaoLoginProps {
 
 export default function KakaoLogin({ title, onClickBtn }: KakaoLoginProps) {
   return (
-    <div>
-      <Image src="/image/kakao_login_medium_narrow.png" alt={title} />
+    <div style={{ width: '100px', height: 'auto' }}>
+      <Image
+        src="/image/kakao_login_medium_narrow.png"
+        alt={title}
+        width={100}
+        height={50}
+      />
       <Button onClick={onClickBtn}>{title}</Button>
     </div>
   )
