@@ -7,3 +7,5 @@ export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id
 export const KAKAO_CLIENT_ID = '74bc77e0d907bd990b56b0159569d644'
 
 export const KAKAO_CLIENT_SECRET = '4JGxwdwPwmLwra09AMjR89WZJ9sgktL9'
+
+export const KAKAO_JS_KEY = 'b0b6c17400c81040cf0e3964beac9e5e'

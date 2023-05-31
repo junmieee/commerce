@@ -30,6 +30,7 @@ const StyledIcon = styled.div`
 
 export default function Header() {
   const { data: session } = useSession()
+  console.log('세션', session)
   const router = useRouter()
 
   return (
