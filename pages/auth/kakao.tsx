@@ -29,7 +29,7 @@ const Kakao: NextPage = () => {
         router.push('/')
       } else {
         // 실패하면 에러 페이지로 리다이렉트
-        router.push('/notifications/authentication-failed')
+        router.push('/')
       }
     },
     [router]
