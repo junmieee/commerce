@@ -1,4 +1,4 @@
-export const KAKAO_REST_API_KEY = process.env.KAKAO_CLIENT_ID
+export const KAKAO_REST_API_KEY = '74bc77e0d907bd990b56b0159569d644'
 
 export const KAKAO_REDIRECT_URI = 'http://localhost:3000/auth/kakao'
 

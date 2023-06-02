@@ -13,7 +13,7 @@ const KakaoBtn = styled.div`
 export default function Login() {
   function kakaoLogin() {
     window.Kakao.Auth.authorize({
-      redirectUri: 'http://localhost:3000/pages/auth/kakao',
+      redirectUri: 'http://localhost:3000/auth/kakao',
     })
   }
   return (

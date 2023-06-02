@@ -28,6 +28,26 @@ const StyledIcon = styled.div`
   }
 `
 
+const getUserFromKakao = async () => {
+  try {
+    const response = await fetch('https://kapi.kakao.com/v2/user/me', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+
+    if (response.ok) {
+      const data = await response.json()
+      return data
+    } else {
+      throw new Error('Failed to fetch user data from Kakao')
+    }
+  } catch (error) {
+    console.error('Error fetching user data from Kakao:', error)
+    throw error
+  }
+}
+
 export default function Header() {
   const { data: session } = useSession()
   console.log('세션', session)

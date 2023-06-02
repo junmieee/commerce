@@ -10,7 +10,6 @@ interface ResponseType {
 const Kakao: NextPage = () => {
   const router = useRouter()
   const { code: authCode, error: kakaoServerError } = router.query
-
   const loginHandler = useCallback(
     async (code: string | string[]) => {
       // 백엔드에 전송
@@ -25,6 +24,7 @@ const Kakao: NextPage = () => {
       }).then((res) => res.json())
 
       if (response.ok) {
+        console.log(authCode)
         // 성공하면 홈으로 리다이렉트
         router.push('/')
       } else {
@@ -38,6 +38,7 @@ const Kakao: NextPage = () => {
   useEffect(() => {
     if (authCode) {
       loginHandler(authCode)
+      console.log(authCode)
 
       // 인가코드를 제대로 못 받았을 경우에 에러 페이지를 띄운다.
     } else if (kakaoServerError) {
@@ -45,7 +46,7 @@ const Kakao: NextPage = () => {
     }
   }, [loginHandler, authCode, kakaoServerError, router])
 
-  return <h2>로그인 중입니다..</h2>
+  return <h2>...로그인 중입니다.</h2>
 }
 
 export default Kakao
