@@ -2,10 +2,6 @@ import React from 'react'
 import { GoogleLogin } from '@react-oauth/google'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { CLIENT_ID } from 'constants/googleAuth'
-import Image from 'next/image'
-import { useSession, signIn } from 'next-auth/react'
-import { useRouter } from 'next/router'
-import { useCallback, useEffect } from 'react'
 
 export default function Google() {
   return (

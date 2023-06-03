@@ -14,15 +14,26 @@ export function AllLogin() {
       ) : (
         <div>
           Not signed in <br />
-          <Button onClick={() => signIn()}>Sign in</Button>
+          <Button onClick={() => signIn()}>Sign in with Google</Button>
         </div>
       )}
     </div>
   )
 }
 
-// export function KakaoLogin() {
-//   const { data: session } = useSession();
+// import { useSession, signIn, signOut } from 'next-auth/react'
+// import Button from './Button'
+
+// export function AllLogin() {
+//   const { data: session } = useSession()
+
+//   const handleSignIn = (provider) => {
+//     const options = {
+//       callbackUrl: 'http://localhost:3000/api/auth/callback/' + provider
+//     }
+
+//     signIn(provider, options)
+//   }
 
 //   return (
 //     <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -34,9 +45,10 @@ export function AllLogin() {
 //       ) : (
 //         <div>
 //           Not signed in <br />
-//           <Button onClick={() => signIn('kakao')}>Kakao Sign in</Button>
+//           <Button onClick={() => handleSignIn('google')}>Sign in with Google</Button>
+//           <Button onClick={() => handleSignIn('kakao')}>Sign in with Kakao</Button>
 //         </div>
 //       )}
 //     </div>
-//   );
+//   )
 // }
