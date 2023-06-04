@@ -1,11 +1,16 @@
 import { useSession, signIn, signOut } from 'next-auth/react'
 import Button from './Button'
+import styled from 'styled-components'
+
+const Container = styled.div`
+  margin-bottom: 10px;
+`
 
 export function AllLogin() {
   const { data: session } = useSession()
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <Container>
       {session ? (
         <div>
           Signed in as {session.user?.email} <br />
@@ -17,7 +22,7 @@ export function AllLogin() {
           <Button onClick={() => signIn()}>Sign in with Google</Button>
         </div>
       )}
-    </div>
+    </Container>
   )
 }
 

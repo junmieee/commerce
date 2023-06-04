@@ -3,12 +3,22 @@ import KakaoLogin from 'components/KakaoLogin'
 import React from 'react'
 import styled from 'styled-components'
 
-const KakaoBtn = styled.div`
+const Container = styled.div`
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  left: 50%;
+`
+
+const KakaoBtnContainer = styled.div`
   width: 100px;
   height: 100px;
-  background-color: red;
+  margin-top: 20px;
+  cursor: pointer;
 `
+const KakaoBtn = styled.img``
 
 export default function Login() {
   function kakaoLogin() {
@@ -16,55 +26,18 @@ export default function Login() {
       redirectUri: 'http://localhost:3000/auth/kakao',
     })
   }
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        height: '70vh',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
+    <Container>
       <AllLogin />
 
-      <KakaoBtn
-        style={{ width: '100px' }}
-        onClick={kakaoLogin}
-        title="kakao login"
-      />
-    </div>
+      <KakaoBtnContainer>
+        <KakaoBtn
+          src="/images/kakao_login_medium_narrow.png"
+          onClick={kakaoLogin}
+          title="kakao login"
+        />
+      </KakaoBtnContainer>
+    </Container>
   )
 }
-
-// import { signIn, signOut, useSession } from 'next-auth/react';
-// import Button from 'components/Button';
-
-// export default function Login() {
-//   const { data: session } = useSession();
-
-//   return (
-//     <div
-//       style={{
-//         display: 'flex',
-//         height: '70vh',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//       }}
-//     >
-//       <div style={{ display: 'flex', flexDirection: 'column' }}>
-//         {session ? (
-//           <div>
-//             Signed in as {session.user?.email} <br />
-//             <Button onClick={() => signOut()}>Sign out</Button>
-//           </div>
-//         ) : (
-//           <div>
-//             Not signed in <br />
-//             <Button onClick={() => signIn('google')}>Sign in with Google</Button>
-//             <Button onClick={() => signIn('kakao')}>Sign in with Kakao</Button>
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
