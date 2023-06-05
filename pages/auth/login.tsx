@@ -5,20 +5,26 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  top: 50%;
-  left: 50%;
+  height: 100vh;
+`
+
+const AllLoginContainer = styled.div`
+  margin-bottom: 10px;
 `
 
 const KakaoBtnContainer = styled.div`
-  width: 100px;
-  height: 100px;
-  margin-top: 20px;
+  margin-top: 10px;
   cursor: pointer;
+  border-radius: 12px;
 `
-const KakaoBtn = styled.img``
+
+const KakaoBtn = styled.img`
+  height: 60px;
+  width: 240px;
+`
 
 export default function Login() {
   function kakaoLogin() {
@@ -29,7 +35,9 @@ export default function Login() {
 
   return (
     <Container>
-      <AllLogin />
+      <AllLoginContainer>
+        <AllLogin />
+      </AllLoginContainer>
 
       <KakaoBtnContainer>
         <KakaoBtn

@@ -1,3 +1,4 @@
+import Loading from 'components/Loading'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect } from 'react'
@@ -46,7 +47,7 @@ const Kakao: NextPage = () => {
     }
   }, [loginHandler, authCode, kakaoServerError, router])
 
-  return <h2>...로그인 중입니다.</h2>
+  return <Loading />
 }
 
 export default Kakao
