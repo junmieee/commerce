@@ -9,6 +9,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
+  text-align: center;
 `
 
 const AllLoginContainer = styled.div`

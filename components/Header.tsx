@@ -14,17 +14,19 @@ const StyledIcon = styled.div`
   display: inline-block;
   margin-right: 4px;
   cursor: pointer;
+  position: relative;
 
-  &:hover {
-    svg {
-      fill: #ecf0f1;
-    }
-  }
-
-  &:focus {
-    svg {
-      fill: #000;
-    }
+  &:hover::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(128, 128, 128, 0.2);
+    transition: ease-in-out 0.3s;
   }
 `
 
