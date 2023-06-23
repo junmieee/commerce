@@ -26,7 +26,6 @@ export default function KakaoLogin({ title, onClickBtn }: KakaoLoginType) {
         </div>
       ) : (
         <div>
-          Not signed in <br />
           <Button onClick={() => signIn('kakao', { callbackUrl: '/user' })}>
             KaKo Sign in
           </Button>

@@ -2,6 +2,7 @@ import { AllLogin } from 'components/GoogleLogin'
 import KakaoLogin from 'components/KakaoLogin'
 import React from 'react'
 import styled from 'styled-components'
+import Google from './google'
 
 const Container = styled.div`
   display: flex;
@@ -37,7 +38,8 @@ export default function Login() {
   return (
     <Container>
       <AllLoginContainer>
-        <AllLogin />
+        {/* <AllLogin /> */}
+        <Google />
       </AllLoginContainer>
 
       <KakaoBtnContainer>

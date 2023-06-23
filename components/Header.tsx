@@ -12,7 +12,7 @@ import styled from '@emotion/styled'
 
 const StyledIcon = styled.div`
   display: inline-block;
-  margin-right: 4px;
+  margin-right: 8px;
   cursor: pointer;
   position: relative;
 
@@ -22,8 +22,8 @@ const StyledIcon = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 30px;
-    height: 30px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     background-color: rgba(128, 128, 128, 0.2);
     transition: ease-in-out 0.3s;
