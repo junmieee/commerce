@@ -5,27 +5,15 @@ import styled from 'styled-components'
 import Google from './google'
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin-bottom: 10px;
+  height: 100;
+  width: 100%;
   justify-content: center;
-  height: 100vh;
-  text-align: center;
+  align-items: center;
 `
 
 const AllLoginContainer = styled.div`
   margin-bottom: 10px;
-`
-
-const KakaoBtnContainer = styled.div`
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 12px;
-`
-
-const KakaoBtn = styled.img`
-  height: 60px;
-  width: 240px;
 `
 
 export default function Login() {
@@ -38,17 +26,16 @@ export default function Login() {
   return (
     <Container>
       <AllLoginContainer>
-        {/* <AllLogin /> */}
-        <Google />
+        <AllLogin />
       </AllLoginContainer>
 
-      <KakaoBtnContainer>
+      {/* <KakaoBtnContainer>
         <KakaoBtn
           src="/images/kakao_login_medium_narrow.png"
           onClick={kakaoLogin}
           title="kakao login"
         />
-      </KakaoBtnContainer>
+      </KakaoBtnContainer> */}
     </Container>
   )
 }

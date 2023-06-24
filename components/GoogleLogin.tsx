@@ -1,22 +1,34 @@
 import { useSession, signIn, signOut } from 'next-auth/react'
 import Button from './Button'
 import styled from 'styled-components'
-import Google from '../pages/auth/google'
-import Image from 'next/image'
-// import GoogleLogin from 'react-google-login';
 
 const Container = styled.div`
   margin-bottom: 10px;
-  height: 100%;
-  width: 100%;
+  height: 300px;
+  width: 300px;
   justify-content: center;
   align-items: center;
 `
 
-// const GButton = styled(Image)`
-//   width: 100px;
-//   height: 100px;
-// `
+const StyledGoogleButton = styled.button`
+  display: flex;
+  background-color: #fff;
+  color: #555;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #f1f1f1;
+  }
+`
+
+const ButtonText = styled.p`
+  font-family: 'Roboto', sans-serif;
+`
 
 export function AllLogin() {
   const { data: session } = useSession()
@@ -31,10 +43,14 @@ export function AllLogin() {
         </div>
       ) : (
         <div>
-          <Button onClick={() => signIn()}>Sign in with Google</Button>
-          {/* <div style={{ width: '300px', height: '200px' }}> */}
-          {/* <GButton src="/images/googleBtn.png" alt="Google Button" width={200} height={200} /> */}
-          {/* </div> */}
+          <StyledGoogleButton onClick={() => signIn()}>
+            <img
+              src="/images/google.svg"
+              alt="Google Logo"
+              style={{ marginRight: '10px' }}
+            />
+            <ButtonText>구글로 로그인하기</ButtonText>
+          </StyledGoogleButton>
         </div>
       )}
     </Container>

@@ -36,6 +36,10 @@ export default function CommentEdit() {
     }
   }, [orderItemId])
 
+  const handleImageDelete = (index: number) => {
+    setImages((prevImages) => prevImages.filter((_, idx) => idx !== index))
+  }
+
   const handleSave = () => {
     if (editorState && orderItemId != null) {
       fetch(`/api/update-comment`, {
@@ -127,7 +131,26 @@ export default function CommentEdit() {
       <div style={{ display: 'flex' }}>
         {images &&
           images.length > 0 &&
-          images.map((image, idx) => <AutoSizeImage key={idx} src={image} />)}
+          images.map((image, idx) => (
+            <div key={idx} style={{ position: 'relative' }}>
+              <AutoSizeImage src={image} />
+              <button
+                style={{
+                  position: 'absolute',
+                  top: '0.5rem',
+                  right: '0.5rem',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  color: 'black',
+                  fontSize: '1rem',
+                }}
+                onClick={() => handleImageDelete(idx)}
+              >
+                X
+              </button>
+            </div>
+          ))}
       </div>
     </div>
   )

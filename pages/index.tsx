@@ -167,7 +167,6 @@ export default function Products() {
             total={total}
           />
         )}
-        ;
       </div>
     </div>
   )
