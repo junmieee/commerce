@@ -4,11 +4,12 @@ import {
   IconShoppingCart,
   IconUser,
 } from '@tabler/icons-react'
-import { useSession } from 'next-auth/react'
-import Image from 'next/image'
+import { AiOutlineMenu } from 'react-icons/ai'
+import Nav from './Nav'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
+import { useSession } from 'next-auth/react'
 
 const StyledIcon = styled.div`
   display: inline-block;
@@ -30,30 +31,28 @@ const StyledIcon = styled.div`
   }
 `
 
-const getUserFromKakao = async () => {
-  try {
-    const response = await fetch('https://kapi.kakao.com/v2/user/me', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-
-    if (response.ok) {
-      const data = await response.json()
-      return data
-    } else {
-      throw new Error('Failed to fetch user data from Kakao')
-    }
-  } catch (error) {
-    console.error('Error fetching user data from Kakao:', error)
-    throw error
-  }
-}
+const MEMBER_MENU = ['로그아웃', '마이페이지']
+const NON_MEMBER_MENU = ['로그인', '회원가입']
 
 export default function Header() {
-  const { data: session } = useSession()
-  console.log('세션', session)
+  const [isActive, setIsActive] = useState(false)
+  const { data, status } = useSession()
+  const isMember = data ? MEMBER_MENU : NON_MEMBER_MENU
+
   const router = useRouter()
+
+  const showNav = () => {
+    setIsActive(!isActive)
+  }
+
+  const goToCart = () => {
+    router.push('/cart')
+  }
+
+  // JWT를 이용한 세션 정보 가져오기
+  const session = useSession()
+  console.log('session', session)
+  const user = session?.data?.user
 
   return (
     <div className="mt-12 mb-12">
@@ -68,12 +67,13 @@ export default function Header() {
         <StyledIcon className="mr-4" onClick={() => router.push('/cart')}>
           <IconShoppingCart />
         </StyledIcon>
-        {session ? (
-          <Image
-            src={session.user?.image}
+
+        {user ? (
+          <img
+            src={user?.image}
             width={30}
             height={30}
-            style={{ borderRadius: '50%' }}
+            style={{ borderRadius: '50%', cursor: 'pointer' }}
             alt="profile"
             onClick={() => router.push('/my')}
           />
@@ -82,6 +82,15 @@ export default function Header() {
             <IconUser />
           </StyledIcon>
         )}
+        <StyledIcon className="mr-4" onClick={showNav}>
+          <AiOutlineMenu size={25} />
+        </StyledIcon>
+        <Nav
+          isActive={isActive}
+          showNav={showNav}
+          isMember={isMember}
+          goToCart={goToCart}
+        />
       </div>
     </div>
   )
