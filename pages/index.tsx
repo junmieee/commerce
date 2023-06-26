@@ -21,12 +21,6 @@ export default function Products() {
 
   const debouncedKeyword = useDebounce<string>(keyward)
 
-  // useEffect(() => {
-  //   fetch(`/api/get-categories`)
-  //     .then((res) => res.json())
-  //     .then((data) => setCategories(data.items))
-  // }, [])
-
   const { data: categories } = useQuery<
     { items: categories[] },
     unknown,
@@ -36,12 +30,6 @@ export default function Products() {
     () => fetch(`/api/get-categories`).then((res) => res.json()),
     { select: (data) => data.items }
   )
-
-  // useEffect(() => {
-  //   fetch(`/api/get-products-count?category=${selectedCategory}&contains=${debouncedKeyword}`)
-  //     .then((res) => res.json())
-  //     .then((data) => setTotal(Math.ceil(data.items / TAKE)))
-  // }, [selectedCategory, debouncedKeyword])
 
   const { data: total } = useQuery(
     [
@@ -54,15 +42,6 @@ export default function Products() {
         .then((res) => res.json())
         .then((data) => Math.ceil(data.items / TAKE))
   )
-
-  // useEffect(() => {
-  //   const skip = TAKE * (activePage - 1)
-  //   fetch(
-  //     `/api/get-products?skip=${skip}&take=${TAKE}&category=${selectedCategory}&orderBy=${selectedFilter}&contains=${debouncedKeyword}`
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => setProducts(data.items))
-  // }, [activePage, selectedCategory, selectedFilter, debouncedKeyword])
 
   const { data: products } = useQuery<
     { items: products[] },
