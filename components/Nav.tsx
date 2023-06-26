@@ -1,6 +1,11 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import styled, { css } from 'styled-components'
+import {
+  AiOutlineShoppingCart,
+  AiOutlineHeart,
+  AiOutlineUser,
+} from 'react-icons/ai'
 
 interface NavProps {
   isActive: boolean
@@ -78,19 +83,27 @@ const CategoryList = styled.ul`
 
 const CategoryItem = styled.li`
   width: calc(25% - 30px);
-  padding: 10px 0;
   margin: 0 20px;
   text-align: center;
   border-radius: 20px;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  transition: 0.2s ease-in-out;
 
   &:hover {
-    background: gray;
+    background: rgba(89, 98, 117, 0.4);
+    svg {
+      color: #f5f6fa;
+    }
   }
 
-  img {
-    width: 45px;
-    height: 45px;
+  svg {
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: 0 auto;
   }
 `
 
@@ -106,12 +119,13 @@ const Nav: React.FC<NavProps> = ({ isActive, showNav, isMember, goToCart }) => {
   interface MenuItem {
     name: string
     url: string
+    icon: JSX.Element
   }
 
   const Menu: MenuItem[] = [
-    { name: '장바구니', url: '/cart' },
-    { name: '찜', url: '/wishlist' },
-    { name: '내 정보', url: '/auth/login' },
+    { name: '장바구니', url: '/cart', icon: <AiOutlineShoppingCart /> },
+    { name: '찜', url: '/wishlist', icon: <AiOutlineHeart /> },
+    { name: '내 정보', url: '/auth/login', icon: <AiOutlineUser /> },
   ]
 
   const onItemClick = (url: string) => {
@@ -132,8 +146,11 @@ const Nav: React.FC<NavProps> = ({ isActive, showNav, isMember, goToCart }) => {
           {/* <MenuName>쇼핑하기</MenuName> */}
           <CategoryList>
             {Menu.map((menu, index) => (
-              <CategoryItem key={index} onClick={() => onItemClick(menu.url)}>
-                {menu.name}
+              <CategoryItem
+                key={menu.name}
+                onClick={() => onItemClick(menu.url)}
+              >
+                {menu.icon}
               </CategoryItem>
             ))}
           </CategoryList>
