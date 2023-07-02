@@ -93,9 +93,10 @@ const CategoryItem = styled.li`
   transition: 0.2s ease-in-out;
 
   &:hover {
-    background: rgba(89, 98, 117, 0.4);
+    background: rgba(89, 98, 117, 0.2);
+
     svg {
-      color: #f5f6fa;
+      color: #95979e;
     }
   }
 
