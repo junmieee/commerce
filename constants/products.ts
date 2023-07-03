@@ -31,3 +31,6 @@ export const ORDER_STATUS_MAP = [
   '반품대기',
   '반품완료',
 ]
+
+export const MEMBER = ['로그아웃', '마이페이지']
+export const NON_MEMBER = ['로그인', '회원가입']

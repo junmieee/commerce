@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { useSession } from 'next-auth/react'
+import { MEMBER, NON_MEMBER } from '../constants/products'
 
 const StyledIcon = styled.div`
   display: inline-block;
@@ -31,13 +32,10 @@ const StyledIcon = styled.div`
   }
 `
 
-const MEMBER_MENU = ['로그아웃', '마이페이지']
-const NON_MEMBER_MENU = ['로그인', '회원가입']
-
 export default function Header() {
   const [isActive, setIsActive] = useState(false)
   const { data, status } = useSession()
-  const isMember = data ? MEMBER_MENU : NON_MEMBER_MENU
+  const isLoggedin = data ? MEMBER : NON_MEMBER
 
   const router = useRouter()
 
@@ -88,7 +86,7 @@ export default function Header() {
         <Nav
           isActive={isActive}
           showNav={showNav}
-          isMember={isMember}
+          isLoggedin={isLoggedin}
           goToCart={goToCart}
         />
       </div>

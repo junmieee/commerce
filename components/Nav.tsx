@@ -10,7 +10,7 @@ import {
 interface NavProps {
   isActive: boolean
   showNav: () => void
-  isMember: string[]
+  isLoggedin: string[]
   goToCart: () => void
 }
 
@@ -95,9 +95,9 @@ const CategoryItem = styled.li`
   &:hover {
     background: rgba(89, 98, 117, 0.2);
 
-    svg {
+    /* svg {
       color: #95979e;
-    }
+    } */
   }
 
   svg {
@@ -114,7 +114,12 @@ const StyledMenuName = styled.p`
   cursor: pointer;
 `
 
-const Nav: React.FC<NavProps> = ({ isActive, showNav, isMember, goToCart }) => {
+const Nav: React.FC<NavProps> = ({
+  isActive,
+  showNav,
+  isLoggedin,
+  goToCart,
+}) => {
   const router = useRouter()
 
   interface MenuItem {
@@ -157,13 +162,12 @@ const Nav: React.FC<NavProps> = ({ isActive, showNav, isMember, goToCart }) => {
           </CategoryList>
         </NavSection>
         <NavSection>
-          <StyledMenuName>브랜드스토리</StyledMenuName>
           <StyledMenuName>이용가이드</StyledMenuName>
           <StyledMenuName>공지사항</StyledMenuName>
           <StyledMenuName>고객센터</StyledMenuName>
         </NavSection>
         <NavSection>
-          {/* {isMember.map((info, index) => (
+          {/* {isLoggedin.map((info, index) => (
             <StyledMenuName key={index} onClick={() => handleNavigate(info)}>
               {info}
             </StyledMenuName>
