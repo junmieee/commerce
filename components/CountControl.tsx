@@ -85,7 +85,7 @@ export function CountControl({
         max={max}
         handlersRef={handlers}
         value={value}
-        onChange={setValue}
+        onChange={(value: number | '') => setValue(value as number | undefined)}
         classNames={{ input: classes.input }}
       />
 
