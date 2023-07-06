@@ -6,6 +6,13 @@ import {
   AiOutlineHeart,
   AiOutlineUser,
 } from 'react-icons/ai'
+import { signOut } from 'next-auth/react'
+
+// interface User {
+//   name: string;
+//   email: string;
+//   image: string;
+// }
 
 interface NavProps {
   isActive: boolean
@@ -138,6 +145,19 @@ const Nav: React.FC<NavProps> = ({
     router.push(url)
     showNav()
   }
+  const handleNavigate = (info: string) => {
+    if (info === '로그아웃') {
+      signOut().then(() => {
+        router.push('/')
+      })
+    } else if (info === '마이페이지') {
+      router.push('/my')
+    } else if (info === '로그인') {
+      router.push('/signin')
+    } else if (info === '회원가입') {
+      router.push('/signin')
+    }
+  }
 
   return (
     <>
@@ -167,11 +187,11 @@ const Nav: React.FC<NavProps> = ({
           <StyledMenuName>고객센터</StyledMenuName>
         </NavSection>
         <NavSection>
-          {/* {isLoggedin.map((info, index) => (
+          {isLoggedin.map((info, index) => (
             <StyledMenuName key={index} onClick={() => handleNavigate(info)}>
               {info}
             </StyledMenuName>
-          ))} */}
+          ))}
         </NavSection>
       </NavWrapper>
     </>

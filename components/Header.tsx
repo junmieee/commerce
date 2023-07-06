@@ -34,10 +34,15 @@ const StyledIcon = styled.div`
 
 export default function Header() {
   const [isActive, setIsActive] = useState(false)
-  const { data, status } = useSession()
-  const isLoggedin = data ? MEMBER : NON_MEMBER
-
+  // const { data, status } = useSession()
   const router = useRouter()
+
+  // JWT를 이용한 세션 정보 가져오기
+  const session = useSession()
+  console.log('session', session)
+  const user = session?.data?.user
+  // console.log('user', user)
+  const isLoggedin = user ? MEMBER : NON_MEMBER
 
   const showNav = () => {
     setIsActive(!isActive)
@@ -46,11 +51,6 @@ export default function Header() {
   const goToCart = () => {
     router.push('/cart')
   }
-
-  // JWT를 이용한 세션 정보 가져오기
-  const session = useSession()
-  console.log('session', session)
-  const user = session?.data?.user
 
   return (
     <div className="mt-12 mb-12">
