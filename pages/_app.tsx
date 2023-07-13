@@ -25,18 +25,6 @@ export default function App({
     },
   })
 
-  useEffect(() => {
-    // Kakao JavaScript SDK 로드
-    const script = document.createElement('script')
-    script.src = 'https://developers.kakao.com/sdk/js/kakao.js' // Kakao JavaScript SDK 파일의 URL
-    script.async = true
-    document.body.appendChild(script)
-
-    script.onload = () => {
-      window.Kakao.init(KAKAO_JS_KEY) // 카카오 앱 키 입력
-    }
-  }, [])
-
   return (
     <SessionProvider session={session}>
       <GoogleOAuthProvider clientId={CLIENT_ID}>

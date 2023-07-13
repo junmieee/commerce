@@ -15,27 +15,28 @@ const StyledGoogleButton = styled.button`
   background-color: #fff;
   color: #555;
   border: 1px solid #ddd;
-  border-radius: 12px;
+  border-radius: 5px;
   padding: 10px 15px;
   font-size: 14px;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
     background-color: #f1f1f1;
   }
+  p {
+    font-family: 'Roboto', sans-serif;
+  }
 `
 
-const ButtonText = styled.p`
-  font-family: 'Roboto', sans-serif;
-`
-
-export function AllLogin() {
+export function GoogleLogin() {
   const { data: session } = useSession()
 
   return (
     <Container>
-      <p>회원가입</p>
+      <p>회원가입/로그인</p>
       {session ? (
         <div>
           Signed in as {session.user?.email} <br />
@@ -47,9 +48,9 @@ export function AllLogin() {
             <img
               src="/images/google.svg"
               alt="Google Logo"
-              style={{ marginRight: '10px' }}
+              style={{ marginRight: '10px', border: 'none' }}
             />
-            <ButtonText>구글로 로그인하기</ButtonText>
+            <p>구글로 로그인하기</p>
           </StyledGoogleButton>
         </div>
       )}

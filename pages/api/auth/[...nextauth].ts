@@ -16,14 +16,10 @@ export const authOptions: NextAuthOptions = {
       clientId: CLIENT_ID,
       clientSecret: CLIENT_SECRET,
     }),
-    KaKaoProvider({
-      clientId: process.env.KAKAO_CLIENT_ID!,
-      clientSecret: process.env.KAKAO_CLIENT_SECRET!,
-    }),
   ],
-  pages: {
-    signIn: '/',
-  },
+  // pages: {
+  //   signIn: '/',
+  // },
   session: {
     strategy: 'database',
     maxAge: 1 * 24 * 60 * 60,

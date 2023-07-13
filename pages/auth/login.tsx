@@ -1,5 +1,5 @@
-import { AllLogin } from 'components/GoogleLogin'
-import KakaoLogin from 'components/KakaoLogin'
+import { GoogleLogin } from 'components/GoogleLogin'
+import KakaoLogin from 'components/Login'
 import React from 'react'
 import styled from 'styled-components'
 import type {
@@ -9,7 +9,8 @@ import type {
 import { getProviders, signIn, useSession } from 'next-auth/react'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from '../api/auth/[...nextauth]'
-import { googleLogout } from '@react-oauth/google'
+import AllLogin from 'components/Login'
+// import { GoogleLogin, googleLogout } from '@react-oauth/google'
 
 const Container = styled.div`
   margin-bottom: 10px;
@@ -31,24 +32,17 @@ export default function Login({
   return (
     <Container>
       <AllLoginContainer>
+        <AllLogin />
         {/* <Google /> */}
-        {/* <AllLogin /> */}
-        {Object.values(providers).map((provider) => (
+        <GoogleLogin />
+        {/* {Object.values(providers).map((provider) => (
           <div key={provider.name}>
             <button onClick={() => signIn(provider.id)}>
               Sign in with {provider.name}
             </button>
           </div>
-        ))}
+        ))} */}
       </AllLoginContainer>
-
-      {/* <KakaoBtnContainer>
-        <KakaoBtn
-          src="/images/kakao_login_medium_narrow.png"
-          onClick={kakaoLogin}
-          title="kakao login"
-        />
-      </KakaoBtnContainer> */}
     </Container>
   )
 }
