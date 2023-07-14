@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { PrismaClient } from '@prisma/client'
+import { hashPassword } from '../../../hooks/auth'
 
 const prisma = new PrismaClient()
 
@@ -12,26 +13,50 @@ export default async function handler(
   }
 
   const { name, email, password } = req.body
+  console.log('req.body', req.body)
 
-  try {
-    const user = await prisma.user.upsert({
-      where: {
-        email: email,
-      },
-      update: {
-        name: name,
-        // image: picture,
-      },
-      create: {
-        email: email,
-        name: name,
-        password: password,
-      },
+  if (
+    !name ||
+    !email ||
+    !email.includes('@') ||
+    !password ||
+    password.trim().length < 7
+  ) {
+    res.status(422).json({
+      message: '비밀번호는 최 7자 이상으로 설정해주세요.',
+      error: true,
     })
+    return
+  }
 
-    res.status(201).json({ user })
-  } catch (error) {
-    console.error(error)
-    res.status(500).json({ message: 'Failed to create user' })
+  const existingUser = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+    select: {
+      email: true,
+      name: true,
+    },
+  })
+
+  if (existingUser) {
+    res.status(422).json({ message: 'User Email already exists!', error: true })
+    return
+  }
+
+  const hashedPassword = await hashPassword(password)
+
+  const result = await prisma.user.create({
+    data: {
+      name: name,
+      email: email,
+      password: hashedPassword,
+    },
+  })
+
+  if (result) {
+    res.status(201).json({ message: 'Created user!', error: false })
+  } else {
+    res.status(422).json({ message: 'Prisma error occured', error: true })
   }
 }

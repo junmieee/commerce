@@ -9,7 +9,7 @@ import Nav from './Nav'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
-import { useSession } from 'next-auth/react'
+import { useSession, signIn } from 'next-auth/react'
 import { MEMBER, NON_MEMBER } from '../constants/products'
 
 const StyledIcon = styled.div`
@@ -76,7 +76,7 @@ export default function Header() {
             onClick={() => router.push('/my')}
           />
         ) : (
-          <StyledIcon onClick={() => router.push('/auth/login')}>
+          <StyledIcon onClick={() => signIn()}>
             <IconUser />
           </StyledIcon>
         )}

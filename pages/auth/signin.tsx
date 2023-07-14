@@ -1,6 +1,6 @@
 import { GoogleLogin } from 'components/GoogleLogin'
 import KakaoLogin from 'components/Login'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import type {
   GetServerSidePropsContext,
@@ -11,6 +11,7 @@ import { getServerSession } from 'next-auth/next'
 import { authOptions } from '../api/auth/[...nextauth]'
 import AllLogin from 'components/Login'
 // import { GoogleLogin, googleLogout } from '@react-oauth/google'
+import { useRouter } from 'next/router'
 
 const Container = styled.div`
   margin-bottom: 10px;
@@ -28,7 +29,18 @@ export default function Login({
   providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   // const { data: session, status } = useSession()
+  // const [session, loading] = useSession();
+  // const [providers, setProviders] = useState({});
+  // const router = useRouter();
+  // useEffect(() => {
+  //     getProviders().then((res) => setProviders(res));
+  // }, []);
 
+  // useEffect(() => {
+  //     if (session) {
+  //         router.push("/");
+  //     }
+  // }, [session]);
   return (
     <Container>
       <AllLoginContainer>

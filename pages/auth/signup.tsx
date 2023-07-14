@@ -20,7 +20,7 @@ const SignupPage = () => {
 
       if (response.ok) {
         // 회원가입 성공 시 처리할 로직
-        console.log(response)
+        console.log('response', response)
       } else {
         // 회원가입 실패 시 처리할 로직
         console.log('signup error')

@@ -36,7 +36,6 @@ export function GoogleLogin() {
 
   return (
     <Container>
-      <p>회원가입/로그인</p>
       {session ? (
         <div>
           Signed in as {session.user?.email} <br />
@@ -44,7 +43,7 @@ export function GoogleLogin() {
         </div>
       ) : (
         <div>
-          <StyledGoogleButton onClick={() => signIn()}>
+          <StyledGoogleButton onClick={() => signIn('google')}>
             <img
               src="/images/google.svg"
               alt="Google Logo"
