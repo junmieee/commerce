@@ -12,11 +12,10 @@ export default async function handler(
     return res.status(405).json({ message: 'Method Not Allowed' })
   }
 
-  const { name, email, password } = req.body
+  const { email, password } = req.body
   console.log('req.body', req.body)
 
   if (
-    !name ||
     !email ||
     !email.includes('@') ||
     !password ||
@@ -40,7 +39,9 @@ export default async function handler(
   })
 
   if (existingUser) {
-    res.status(422).json({ message: 'User Email already exists!', error: true })
+    res
+      .status(422)
+      .json({ message: '이미 존재하는 이메일입니다. ', error: true })
     return
   }
 
@@ -48,7 +49,6 @@ export default async function handler(
 
   const result = await prisma.user.create({
     data: {
-      name: name,
       email: email,
       password: hashedPassword,
     },

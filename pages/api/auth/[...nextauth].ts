@@ -9,6 +9,11 @@ import { signIn } from 'next-auth/react'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { verifyPassword } from 'hooks/auth'
 
+interface Icredentials {
+  email?: string
+  username?: string
+  password?: string
+}
 // 전역적으로 PrismaClient 인스턴스 생성
 const prisma = new PrismaClient()
 
@@ -22,56 +27,78 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       id: 'credentials',
       name: 'Credentials',
-
       credentials: {
-        username: { label: 'Username', type: 'text', placeholder: 'jsmith' },
-        email: { label: 'Password', type: 'email' },
-
+        name: { label: 'name', type: 'text', placeholder: 'jsmith' },
         password: { label: 'Password', type: 'password' },
-        // },
-        // async authorize(credentials) {
+      },
+      // async authorize(credentials) {
 
-        //   const res = await fetch("/api/auth/all-sign-up", {
-        //     method: 'POST',
-        //     body: JSON.stringify(credentials),
-        //     headers: { "Content-Type": "application/json" }
-        //   })
-        //   const user = await res.json()
+      //   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/user/check-credentials`, {
+      //     method: 'POST',
+      //     body: JSON.stringify(credentials),
+      //     headers: { "Content-Type": "application/json" }
+      //   })
+      //   const user = await res.json()
 
-        //   // If no error and we have user data, return it
-        //   if (res.ok && user) {
-        //     return user
-        //   }
-        //   // Return null if user data could not be retrieved
-        //   return null
+      //   // If no error and we have user data, return it
+      //   if (res.ok && user) {
+      //     return user
+      //   }
+      //   // Return null if user data could not be retrieved
+      //   return null
 
+      // }
+      async authorize(credentials: Icredentials, req) {
+        const user = await prisma.user.findUnique({
+          where: {
+            email: String(credentials.email),
+          },
+          select: {
+            name: true,
+            email: true,
+            password: true,
+          },
+        })
+
+        const isValid = await verifyPassword(
+          credentials.password,
+          user.password
+        )
+
+        if (!user) {
+          throw new Error('No user found!')
+        }
+        if (!isValid) {
+          throw new Error('Password incorrect')
+        }
+        return { name: user.name, email: user.email }
+
+        // const response = await fetch(`${process.env.NEXTAUTH_URL}/api/user/check-credentials`, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/x-www-form-urlencoded",
+        //     accept: "application/json",
+        //   },
+        //   body: Object.entries(credentials)
+        //     .map((e) => e.join("="))
+        //     .join("&"),
+        // }).then((res) => res.json())
+        //   .catch((err) => {
+        //     return null;
+        //   });
+
+        // if (response) {
+        //   return response;
+        // } else {
+        //   return null;
         // }
-        async authorize(credentials, req) {
-          const user = await prisma.user.findUnique({
-            where: {
-              email: String(credentials.email),
-            },
-            select: {
-              name: true,
-              email: true,
-              password: true,
-            },
-          })
 
-          if (!user) {
-            throw new Error('No user found!')
-          }
-
-          const isValid = await verifyPassword(
-            credentials.password,
-            user.password
-          )
-
-          if (!isValid) {
-            throw new Error('Could not log you in!')
-          }
-          return { name: user.name, email: user.email }
-        },
+        //   const data = await response.json();
+        //   if(response.ok && data?.token) {
+        //   return data;
+        // }
+        //     return Promise.reject(new Error(data?.errors));
+        // },
       },
     }),
   ],
@@ -82,6 +109,7 @@ export const authOptions: NextAuthOptions = {
     strategy: 'database',
     maxAge: 1 * 24 * 60 * 60,
   },
+
   callbacks: {
     jwt: async ({ token, user }) => {
       if (user) {

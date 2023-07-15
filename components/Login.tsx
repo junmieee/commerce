@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import { useSession, signIn } from 'next-auth/react'
 import { PrismaClient } from '@prisma/client'
 
+// import { getToken } from "next-auth/jwt"
+
 const AllLogin = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -24,19 +26,10 @@ const AllLogin = () => {
       redirect: false,
     })
 
-    //   if (!result.error) {
-    //     // 로그인 성공
-    //     router.push('/')
-    //   } else {
-    //     // 로그인 실패
-    //     setErrorMessage('로그인에 실패했습니다.')
-    //   }
-    // } else {
-    //   // 알림 표시
-    //   setErrorMessage('아이디 또는 비밀번호가 올바르지 않습니다.')
-    // }
     if (!result.error) {
       console.log('success', result)
+      console.log('session', session)
+
       router.replace('/')
     } else {
       console.log('failed')
@@ -60,16 +53,18 @@ const AllLogin = () => {
 
   // }
 
-  if (status === 'authenticated') {
-    router.replace('/')
-    return (
-      <div>
-        <h1>Log in</h1>
-        <div>You are already logged in.</div>
-        <div>Now redirect to main page.</div>
-      </div>
-    )
-  }
+  // if (status === 'authenticated') {
+  //   router.replace("/");
+  //   return (
+  //     <div>
+  //       <h1>Log in</h1>
+  //       <div>You are already logged in.</div>
+  //       <div>Now redirect to main page.</div>
+  //     </div>
+  //   );
+  // }
+
+  if (status === 'authenticated') console.log('session', session)
   return (
     <Wrapper>
       <Title>Login</Title>

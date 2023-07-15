@@ -28,32 +28,12 @@ const AllLoginContainer = styled.div`
 export default function Login({
   providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  // const { data: session, status } = useSession()
-  // const [session, loading] = useSession();
-  // const [providers, setProviders] = useState({});
-  // const router = useRouter();
-  // useEffect(() => {
-  //     getProviders().then((res) => setProviders(res));
-  // }, []);
-
-  // useEffect(() => {
-  //     if (session) {
-  //         router.push("/");
-  //     }
-  // }, [session]);
   return (
     <Container>
       <AllLoginContainer>
         <AllLogin />
         {/* <Google /> */}
         <GoogleLogin />
-        {/* {Object.values(providers).map((provider) => (
-          <div key={provider.name}>
-            <button onClick={() => signIn(provider.id)}>
-              Sign in with {provider.name}
-            </button>
-          </div>
-        ))} */}
       </AllLoginContainer>
     </Container>
   )
@@ -62,9 +42,6 @@ export default function Login({
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getServerSession(context.req, context.res, authOptions)
 
-  // If the user is already logged in, redirect.
-  // Note: Make sure not to redirect to the same page
-  // To avoid an infinite loop!
   if (session) {
     return { redirect: { destination: '/' } }
   }
