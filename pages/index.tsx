@@ -73,7 +73,7 @@ export default function Products() {
 
   return (
     <div>
-      <div className="flex w-96 relative items-center justify-center">
+      {/* <div className="flex w-96 relative items-center justify-center">
         <IconSearch className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400" />
         <input
           placeholder="검색어를 입력해 주세요."
@@ -81,11 +81,11 @@ export default function Products() {
           onChange={handleChange}
           className="w-full pl-10 pr-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent border border-gray-700			"
         />
-      </div>
+      </div> */}
       {/* 광고 Display*/}
-      <div className="h-36 mt-4 bg-sky-500/100" />
+      <div className="h-36 mt-4 bg-sky-500/100 max-w-screen" />
 
-      <div className="mt-[30px] mb-36">
+      <div className="mt-[30px] mb-36 px-72 md:px-56">
         {/* <Header /> */}
         <div className="mb-4"></div>
         <div className="mb-4">

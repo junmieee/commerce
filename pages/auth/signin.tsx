@@ -13,29 +13,30 @@ import AllLogin from 'components/Login'
 // import { GoogleLogin, googleLogout } from '@react-oauth/google'
 import { useRouter } from 'next/router'
 
-const Container = styled.div`
-  margin-bottom: 10px;
-  height: 100;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-`
+// const Container = styled.div`
 
-const AllLoginContainer = styled.div`
-  margin-bottom: 10px;
-`
+//   margin-bottom: 10px;
+//   height: 100;
+//   width: 100%;
+//   justify-content: center;
+//   align-items: center;
+// `
+
+// const AllLoginContainer = styled.div`
+//   margin-bottom: 10px;
+// `
 
 export default function Login({
   providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
-    <Container>
-      <AllLoginContainer>
-        <AllLogin />
-        {/* <Google /> */}
-        <GoogleLogin />
-      </AllLoginContainer>
-    </Container>
+    <div className="mb-10 xl:px-96 md:px-56 ">
+      {/* <AllLoginContainer> */}
+      <AllLogin />
+      {/* <Google /> */}
+      <GoogleLogin />
+      {/* </AllLoginContainer> */}
+    </div>
   )
 }
 

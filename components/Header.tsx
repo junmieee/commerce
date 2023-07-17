@@ -18,6 +18,8 @@ import { useQuery } from '@tanstack/react-query'
 import { products } from '@prisma/client'
 
 const SearchInput = styled(Input)`
+  margin: auto;
+  width: 50%;
   input:focus {
     border-color: #4c4c4c;
     box-shadow: 0 0 0 2px rgba(76, 76, 76, 0.3);
@@ -106,20 +108,20 @@ export default function Header() {
   }
 
   return (
-    <div className="mt-12 mb-12">
+    <div className="mt-12 mb-12 px-56">
       <div className="w-full flex h-50 items-center">
         <StyledIcon onClick={() => router.push('/')}>
           <IconHome />
         </StyledIcon>
-        {/* <SearchInput
+
+        {/* <span className="" /> */}
+        <SearchInput
           icon={<IconSearch />}
-          placeholder="Search"
+          placeholder="검색어를 입력해주세요."
           value={keyward}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-
-        /> */}
-        <span className="m-auto" />
+        />
         <StyledIcon className="mr-4" onClick={() => router.push('/wishlist')}>
           <IconHeart />
         </StyledIcon>
@@ -141,7 +143,7 @@ export default function Header() {
             <IconUser />
           </StyledIcon>
         )}
-        <StyledIcon className="mr-4" onClick={showNav}>
+        <StyledIcon onClick={showNav}>
           <AiOutlineMenu size={25} />
         </StyledIcon>
         <Nav
