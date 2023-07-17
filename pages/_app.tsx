@@ -29,7 +29,7 @@ export default function App({
     <SessionProvider session={session}>
       <GoogleOAuthProvider clientId={CLIENT_ID}>
         <QueryClientProvider client={queryClient}>
-          <div className="px-36 ">
+          <div className="px-56 ">
             <Header />
             <Component {...pageProps} />
           </div>

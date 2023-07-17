@@ -10,7 +10,19 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { useSession, signIn } from 'next-auth/react'
-import { MEMBER, NON_MEMBER } from '../constants/products'
+import { MEMBER, NON_MEMBER, TAKE } from '../constants/products'
+import { IconSearch } from '@tabler/icons-react'
+import { Input } from '@mantine/core'
+import useDebounce from 'hooks/useDebounce'
+import { useQuery } from '@tanstack/react-query'
+import { products } from '@prisma/client'
+
+const SearchInput = styled(Input)`
+  input:focus {
+    border-color: #4c4c4c;
+    box-shadow: 0 0 0 2px rgba(76, 76, 76, 0.3);
+  }
+`
 
 const StyledIcon = styled.div`
   display: inline-block;
@@ -34,7 +46,48 @@ const StyledIcon = styled.div`
 
 export default function Header() {
   const [isActive, setIsActive] = useState(false)
+  const [keyward, setKeyword] = useState('')
+
+  // const debouncedKeyword = useDebounce<string>(keyward)
+  const [selectedCategory, setSelectedCategory] = useState<string>('-1')
+
   const router = useRouter()
+
+  // const { data: products } = useQuery<
+  //   { items: products[] },
+  //   unknown,
+  //   products[]
+  // >(
+  //   [
+  //     `/api/get-products?skip=${TAKE * (activePage - 1)
+  //     }&take=${TAKE}&category=${selectedCategory}&orderBy=${selectedFilter}&contains=${searchKeyword}`,
+  //   ],
+  //   () =>
+  //     fetch(
+  //       `/api/get-products?skip=${TAKE * (activePage - 1)
+  //       }&take=${TAKE}&category=${selectedCategory}&orderBy=${selectedFilter}&contains=${searchKeyword}`
+  //     ).then((res) => res.json()),
+  //   {
+  //     select: (data) => data.items,
+  //   }
+  // )
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value)
+  }
+
+  const handleSearch = () => {
+    router.push({
+      pathname: '/',
+      query: { search: keyward },
+    })
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch()
+    }
+  }
 
   // JWT를 이용한 세션 정보 가져오기
   const session = useSession()
@@ -58,6 +111,14 @@ export default function Header() {
         <StyledIcon onClick={() => router.push('/')}>
           <IconHome />
         </StyledIcon>
+        {/* <SearchInput
+          icon={<IconSearch />}
+          placeholder="Search"
+          value={keyward}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+
+        /> */}
         <span className="m-auto" />
         <StyledIcon className="mr-4" onClick={() => router.push('/wishlist')}>
           <IconHeart />

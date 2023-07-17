@@ -10,9 +10,12 @@ import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import styled from '@emotion/styled'
+import Header from 'components/Header'
 
 export default function Products() {
   const router = useRouter()
+  const { search } = router.query
+
   const { data: session } = useSession()
   const [activePage, setPage] = useState(1)
   const [selectedCategory, setSelectedCategory] = useState<string>('-1')
@@ -69,83 +72,91 @@ export default function Products() {
   }
 
   return (
-    <div className="mt-36 mb-36 ">
-      <div className="mb-4">
-        <SearchInput
-          icon={<IconSearch />}
-          placeholder="Search"
+    <div>
+      <div className="flex w-96 relative items-center justify-center">
+        <IconSearch className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400" />
+        <input
+          placeholder="검색어를 입력해 주세요."
           value={keyward}
           onChange={handleChange}
+          className="w-full pl-10 pr-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent border border-gray-700			"
         />
       </div>
-      <div className="mb-4">
-        <Select value={selectedFilter} onChange={setFilter} data={FILTERS} />
-      </div>
-      {categories && (
-        <div className="mb-4">
-          <SegmentedControl
-            value={selectedCategory}
-            onChange={setSelectedCategory}
-            data={[
-              {
-                label: 'ALL',
-                value: ' -1',
-              },
-              ...categories.map((category) => ({
-                label: category.name,
-                value: String(category.id),
-              })),
-            ]}
-            color="dark"
-          />
-        </div>
-      )}
+      {/* 광고 Display*/}
+      <div className="h-36 mt-4 bg-sky-500/100" />
 
-      {products && (
-        <div className="grid grid-cols-3 gap-5">
-          {products.map((item) => (
-            <div
-              key={item.id}
-              style={{ maxWidth: 310 }}
-              onClick={() =>
-                router.push({
-                  pathname: `/products/${item.id}`,
-                  query: { id: item.id },
-                })
-              }
-            >
-              <Image
-                className="rounded"
-                alt={item.name}
-                src={item.image_url ?? ''}
-                width={310}
-                height={390}
-                placeholder="blur"
-                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPk4eapBwAA8gCkI4u+qAAAAABJRU5ErkJggg==
+      <div className="mt-[30px] mb-36">
+        {/* <Header /> */}
+        <div className="mb-4"></div>
+        <div className="mb-4">
+          <Select value={selectedFilter} onChange={setFilter} data={FILTERS} />
+        </div>
+        {categories && (
+          <div className="mb-4">
+            <SegmentedControl
+              value={selectedCategory}
+              onChange={setSelectedCategory}
+              data={[
+                {
+                  label: 'ALL',
+                  value: ' -1',
+                },
+                ...categories.map((category) => ({
+                  label: category.name,
+                  value: String(category.id),
+                })),
+              ]}
+              color="dark"
+            />
+          </div>
+        )}
+
+        {products && (
+          <div className="w-full grid grid-cols-3 gap-5">
+            {products.map((item) => (
+              <div
+                key={item.id}
+                style={{ maxWidth: 310 }}
+                onClick={() =>
+                  router.push({
+                    pathname: `/products/${item.id}`,
+                    query: { id: item.id },
+                  })
+                }
+              >
+                <Image
+                  className="rounded"
+                  alt={item.name}
+                  src={item.image_url ?? ''}
+                  width={310}
+                  height={390}
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mPk4eapBwAA8gCkI4u+qAAAAABJRU5ErkJggg==
                 "
-              />
-              <div className="flex">
-                <span>{item.name}</span>
-                <span className="ml-auto">
-                  {item.price.toLocaleString('ko-KR')}원
+                />
+                <div className="flex">
+                  <span>{item.name}</span>
+                  <span className="ml-auto">
+                    {item.price.toLocaleString('ko-KR')}원
+                  </span>
+                </div>
+                <span className="text-zinc-400">
+                  {CATEGORY_MAP[item.category_id - 1]}
                 </span>
               </div>
-              <span className="text-zinc-400">
-                {CATEGORY_MAP[item.category_id - 1]}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
-      <div className="w-full flex mt-5">
-        {total && (
-          <Pagination
-            className="m-auto"
-            value={activePage}
-            onChange={setPage}
-            total={total}
-          />
+            ))}
+          </div>
         )}
+        <div className="w-full flex mt-5">
+          {total && (
+            <Pagination
+              className="m-auto"
+              value={activePage}
+              onChange={setPage}
+              total={total}
+            />
+          )}
+        </div>
       </div>
     </div>
   )
