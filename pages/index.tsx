@@ -10,7 +10,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import styled from '@emotion/styled'
-import Header from 'components/Header'
+import Carousel from 'nuka-carousel'
 
 export default function Products() {
   const router = useRouter()
@@ -23,6 +23,12 @@ export default function Products() {
   const [keyward, setKeyword] = useState('')
 
   const debouncedKeyword = useDebounce<string>(keyward)
+
+  const adImages = [
+    '/path/to/image1.jpg',
+    '/path/to/image2.jpg',
+    '/path/to/image3.jpg',
+  ]
 
   const { data: categories } = useQuery<
     { items: categories[] },
@@ -83,7 +89,17 @@ export default function Products() {
         />
       </div> */}
       {/* 광고 Display*/}
-      <div className="h-36 mt-4 bg-sky-500/100 max-w-screen" />
+      <Carousel autoplay wrapAround autoplayInterval={3000}>
+        {/* <img src="/image1.png" />
+        <img src="/image2.png" />
+        <img src="/image3.png" />
+        <img src="/image4.png" />
+        <img src="/image5.png" /> */}
+        <div className="h-36 mt-4 bg-sky-200 max-w-screen" />
+        <div className="h-36 mt-4 bg-sky-400 max-w-screen" />
+        <div className="h-36 mt-4 bg-sky-500 max-w-screen" />
+        <div className="h-36 mt-4 bg-sky-600 max-w-screen" />
+      </Carousel>
 
       <div className="mt-[30px] mb-36 px-72 md:px-56">
         {/* <Header /> */}
@@ -94,6 +110,7 @@ export default function Products() {
         {categories && (
           <div className="mb-4">
             <SegmentedControl
+              radius={16}
               value={selectedCategory}
               onChange={setSelectedCategory}
               data={[
@@ -106,7 +123,6 @@ export default function Products() {
                   value: String(category.id),
                 })),
               ]}
-              color="dark"
             />
           </div>
         )}
@@ -161,10 +177,3 @@ export default function Products() {
     </div>
   )
 }
-
-const SearchInput = styled(Input)`
-  input:focus {
-    border-color: #4c4c4c;
-    box-shadow: 0 0 0 2px rgba(76, 76, 76, 0.3);
-  }
-`

@@ -137,9 +137,10 @@ export default function Header() {
             style={{ borderRadius: '50%', cursor: 'pointer' }}
             alt="profile"
             onClick={() => router.push('/my')}
+            className="mr-2"
           />
         ) : (
-          <StyledIcon onClick={() => signIn()}>
+          <StyledIcon className="mr-4" onClick={() => signIn()}>
             <IconUser />
           </StyledIcon>
         )}
