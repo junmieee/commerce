@@ -11,6 +11,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import styled from '@emotion/styled'
 import Carousel from 'nuka-carousel'
+import CustomSelect from 'components/CustomSelect'
 
 export default function Products() {
   const router = useRouter()
@@ -21,6 +22,8 @@ export default function Products() {
   const [selectedCategory, setSelectedCategory] = useState<string>('-1')
   const [selectedFilter, setFilter] = useState<string | null>(FILTERS[0].value)
   const [keyward, setKeyword] = useState('')
+  // const [selectedFilter, setSelectedFilter] = useState(FILTERS[0].value);
+  // const [selectedFilter, setSelectedFilter] = useState<string | null>(FILTERS[0].value);
 
   const debouncedKeyword = useDebounce<string>(keyward)
 
@@ -77,6 +80,10 @@ export default function Products() {
     setKeyword(e.target.value)
   }
 
+  // const handleChangeFilter = (filterValue) => {
+  //   setSelectedFilter(filterValue);
+  // };
+
   return (
     <div>
       {/* <div className="flex w-96 relative items-center justify-center">
@@ -104,11 +111,9 @@ export default function Products() {
       <div className="mt-[30px] mb-36 px-72 md:px-56">
         {/* <Header /> */}
         <div className="mb-4"></div>
-        <div className="mb-4">
-          <Select value={selectedFilter} onChange={setFilter} data={FILTERS} />
-        </div>
+        <div className="mb-4"></div>
         {categories && (
-          <div className="mb-4">
+          <div className="mb-4 ">
             <SegmentedControl
               radius={16}
               value={selectedCategory}
@@ -124,6 +129,14 @@ export default function Products() {
                 })),
               ]}
             />
+            {/* <Select value={selectedFilter} onChange={setFilter} data={FILTERS} /> */}
+            <div className="mb-4 ">
+              <CustomSelect
+                value={selectedFilter}
+                onChange={(value) => setFilter(value)}
+                data={FILTERS}
+              />
+            </div>
           </div>
         )}
 

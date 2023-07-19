@@ -14,7 +14,7 @@ export const getOrderBy = (orderBy?: string) => {
       ? { orderBy: { createdAt: 'desc' } }
       : orderBy === 'expensive'
       ? { orderBy: { price: 'desc' } }
-      : { orderBy: { createdAt: 'asc' } }
+      : { orderBy: { price: 'asc' } }
     : undefined
 }
 

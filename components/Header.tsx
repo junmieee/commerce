@@ -4,6 +4,7 @@ import {
   IconShoppingCart,
   IconUser,
 } from '@tabler/icons-react'
+
 import { AiOutlineMenu } from 'react-icons/ai'
 import Nav from './Nav'
 import { useRouter } from 'next/router'

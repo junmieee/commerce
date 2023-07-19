@@ -1,52 +1,27 @@
-import { useState } from 'react'
+import React from 'react'
+import { IconFilter } from '@tabler/icons-react'
 
-const CustomSelect = ({ value, onChange, options }) => {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const handleSelectOption = (optionValue) => {
-    onChange(optionValue)
-    setIsOpen(false)
-  }
-
+const CustomSelect: React.FC<{
+  value: string | null
+  onChange: (value: string | null) => void
+  data: { label: string; value: string }[]
+}> = ({ value, onChange, data }) => {
   return (
-    <div
-      style={{
-        position: 'relative',
-        display: 'inline-block',
-        width: '200px',
-        padding: '8px',
-        borderRadius: '4px',
-        cursor: 'pointer',
-      }}
-      onClick={() => setIsOpen((prevIsOpen) => !prevIsOpen)}
-    >
-      <span>{options.find((option) => option.value === value)?.label}</span>
-      {isOpen && (
-        <div
-          style={{
-            position: 'absolute',
-            top: '100%',
-            left: 0,
-            width: '100%',
-            borderRadius: '4px',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-            zIndex: 1,
-          }}
-        >
-          {options.map((option) => (
-            <div
-              key={option.value}
-              style={{
-                padding: '8px',
-                cursor: 'pointer',
-              }}
-              onClick={() => handleSelectOption(option.value)}
-            >
-              {option.label}
-            </div>
-          ))}
-        </div>
-      )}
+    <div className="relative">
+      <select
+        value={value ?? ''}
+        onChange={(e) => onChange(e.target.value)}
+        className="px-3 py-2 pr-8 border rounded-full bg-gray-200	 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:border-transparent"
+      >
+        <IconFilter />
+        {data.map((item) => (
+          <option key={item.value} value={item.value}>
+            {item.label}
+          </option>
+        ))}
+      </select>
     </div>
   )
 }
+
+export default CustomSelect
