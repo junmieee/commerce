@@ -5,20 +5,43 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useCallback } from 'react'
 import { TAKE } from 'constants/products'
+import { useRouter } from 'next/router'
+import { useQuery } from '@tanstack/react-query'
 
 export default function Products() {
   const [skip, setSkip] = useState(0)
   const [products, setProducts] = useState<products[]>([])
+  const router = useRouter()
+  const { search } = router.query
+  console.log('search', search)
 
   useEffect(() => {
-    fetch(`/api/get-products?skip=0&take=${TAKE}`)
+    fetch(`/api/get-products?skip=${0}&take=${TAKE}&contains=${search}`)
       .then((res) => res.json())
       .then((data) => setProducts(data.items))
   }, [])
 
+  // const { data: product } = useQuery<
+  //   { items: products[] },
+  //   unknown,
+  //   products[]
+  // >(
+  //   [
+  //     `/api/get-products?skip=${0
+  //     }&take=${TAKE}&contains=${search}`,
+  //   ],
+  //   () =>
+  //     fetch(
+  //       `/api/get-products?skip=${0}&take=${TAKE}&contains=${search}`
+  //     ).then((res) => res.json()),
+  //   {
+  //     select: (data) => data.items,
+  //   }
+  // )
+
   const getProducts = useCallback(() => {
     const next = skip + TAKE
-    fetch(`/api/get-products?skip=${next}&take=${TAKE}`)
+    fetch(`/api/get-products?skip=${0}&take=${TAKE}&contains=${search}`)
       .then((res) => res.json())
       .then((data) => {
         const list = products.concat(data.items)
@@ -26,6 +49,9 @@ export default function Products() {
       })
     setSkip(next)
   }, [skip, products])
+
+  console.log('products', products)
+
   return (
     <div className="px-36 mt-36 mb-36 ">
       {products && (
@@ -55,7 +81,7 @@ export default function Products() {
         </div>
       )}
       <button
-        className="w-full rounded mt-20 bg-zinc-200 p-4"
+        className="w-full rounded-full mt-20 bg-zinc-200 p-4"
         onClick={getProducts}
       >
         더보기

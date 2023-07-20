@@ -113,7 +113,7 @@ export default function Products() {
         <div className="mb-4"></div>
         <div className="mb-4"></div>
         {categories && (
-          <div className="mb-4 ">
+          <div className="mb-4 flex justify-between">
             <SegmentedControl
               radius={16}
               value={selectedCategory}
@@ -128,6 +128,17 @@ export default function Products() {
                   value: String(category.id),
                 })),
               ]}
+              styles={{
+                control: {
+                  // 컨트롤(버튼)에 대한 스타일 적용
+                  fontSize: '0.875rem',
+                  lineHeight: 1.5,
+                },
+                root: {
+                  // 컨트롤들을 감싸는 래퍼에 대한 스타일 적용
+                  backgroundColor: '#EDF2F7', // 원하는 색상
+                },
+              }}
             />
             {/* <Select value={selectedFilter} onChange={setFilter} data={FILTERS} /> */}
             <div className="mb-4 ">
@@ -141,7 +152,7 @@ export default function Products() {
         )}
 
         {products && (
-          <div className="w-full grid grid-cols-3 gap-5">
+          <div className="w-full grid grid-cols-3 gap-5 2xl:grid-cols-4">
             {products.map((item) => (
               <div
                 key={item.id}

@@ -11,7 +11,7 @@ const CustomSelect: React.FC<{
       <select
         value={value ?? ''}
         onChange={(e) => onChange(e.target.value)}
-        className="px-3 py-2 pr-8 border rounded-full bg-gray-200	 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:border-transparent"
+        className="px-3 py-2 pr-8 border rounded-full text-gray-700 bg-gray-200	 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:border-transparent "
       >
         <IconFilter />
         {data.map((item) => (

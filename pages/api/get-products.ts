@@ -11,11 +11,11 @@ async function getProducts({
   orderBy,
   contains,
 }: {
-  skip: number
-  take: number
-  category: number
-  orderBy: string
-  contains: string
+  skip?: number
+  take?: number
+  category?: number
+  orderBy?: string
+  contains?: string
 }) {
   const constainsCondition =
     contains && contains !== ''

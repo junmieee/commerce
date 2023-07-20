@@ -53,6 +53,7 @@ export default function Header() {
 
   // const debouncedKeyword = useDebounce<string>(keyward)
   const [selectedCategory, setSelectedCategory] = useState<string>('-1')
+  const debouncedKeyword = useDebounce<string>(keyward)
 
   const router = useRouter()
 
@@ -81,7 +82,7 @@ export default function Header() {
 
   const handleSearch = () => {
     router.push({
-      pathname: '/',
+      pathname: '/products',
       query: { search: keyward },
     })
   }
