@@ -87,7 +87,7 @@ export default function Header() {
     })
   }
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: any) => {
     if (e.key === 'Enter') {
       handleSearch()
     }
