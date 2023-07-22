@@ -30,7 +30,9 @@ export default function App({
       <GoogleOAuthProvider clientId={CLIENT_ID}>
         <QueryClientProvider client={queryClient}>
           <Header />
-          <Component {...pageProps} />
+          <div className="mb-20">
+            <Component {...pageProps} />
+          </div>
         </QueryClientProvider>
       </GoogleOAuthProvider>
     </SessionProvider>
