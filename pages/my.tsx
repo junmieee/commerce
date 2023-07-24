@@ -34,13 +34,16 @@ export default function MyPage() {
   )
 
   return (
-    <div>
-      <span className="text-2xl mb-3">
+    <div
+      className="px-36 mt-36 mb-36 mx-auto xl:w-5/6
+    "
+    >
+      <span className="text-2xl block mb-4">
         {' '}
         주문내역 ({data ? data.length : 0})
       </span>
-      <div className="flex">
-        <div className="flex flex-col p-4 space-y-4 flex-1">
+      <div className="flex ">
+        <div className="flex w-full flex-col space-y-4 flex-1">
           {data ? (
             data?.length > 0 ? (
               data.map((item, idx) => (

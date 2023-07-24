@@ -6,7 +6,7 @@ import {
   AiOutlineHeart,
   AiOutlineUser,
 } from 'react-icons/ai'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 
 // interface User {
 //   name: string;
@@ -127,6 +127,10 @@ const Nav: React.FC<NavProps> = ({
   isLoggedin,
   goToCart,
 }) => {
+  const session = useSession()
+  console.log('session', session)
+
+  const user = session?.data?.user
   const router = useRouter()
 
   interface MenuItem {
@@ -138,9 +142,23 @@ const Nav: React.FC<NavProps> = ({
   const Menu: MenuItem[] = [
     { name: '장바구니', url: '/cart', icon: <AiOutlineShoppingCart /> },
     { name: '찜', url: '/wishlist', icon: <AiOutlineHeart /> },
-    { name: '내 정보', url: '/auth/login', icon: <AiOutlineUser /> },
+    {
+      name: '내 정보',
+      url: '/auth/login',
+      icon: user ? (
+        <img
+          src={user.image}
+          width={30}
+          height={30}
+          style={{ borderRadius: '50%', cursor: 'pointer' }}
+          alt="profile"
+          onClick={() => router.push('/my')}
+        />
+      ) : (
+        <AiOutlineUser />
+      ),
+    },
   ]
-
   const onItemClick = (url: string) => {
     router.push(url)
     showNav()

@@ -194,9 +194,9 @@ export default function Products(props: {
   }
 
   return (
-    <>
+    <div className="flex items-center justify-center">
       {product != null && productId != null ? (
-        <div className="flex flex-row">
+        <div className="flex flex-row ">
           <div style={{ maxWidth: 600, marginRight: 52 }}>
             <Carousel
               withoutControls={true}
@@ -321,6 +321,6 @@ export default function Products(props: {
       ) : (
         <div>로딩중</div>
       )}
-    </>
+    </div>
   )
 }

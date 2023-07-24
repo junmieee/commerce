@@ -53,9 +53,9 @@ export default function Products() {
   console.log('products', products)
 
   return (
-    <div className="px-36 mt-36 mb-36 ">
+    <div className="px-36 mt-36 mb-36 mx-auto	">
       {products && (
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid lg:grid-cols-4 gap-5 md:grid-cols-3">
           {products.map((item) => (
             <div key={item.id}>
               <Image
@@ -67,11 +67,9 @@ export default function Products() {
                 placeholder="blur"
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
               />
-              <div className="flex">
+              <div className="flex flex-col">
                 <span>{item.name}</span>
-                <span className="ml-auto">
-                  {item.price.toLocaleString('ko-KR')}원
-                </span>
+                <span>{item.price.toLocaleString('ko-KR')}원</span>
               </div>
               <span className="text-zinc-400">
                 {item.category_id === 0 && '의류'}

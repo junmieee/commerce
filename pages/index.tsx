@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 import styled from '@emotion/styled'
 import Carousel from 'nuka-carousel'
 import CustomSelect from 'components/CustomSelect'
-
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 export default function Products() {
   const router = useRouter()
   const { search } = router.query
@@ -23,6 +23,26 @@ export default function Products() {
   const [selectedFilter, setFilter] = useState<string | null>(FILTERS[0].value)
   const [keyward, setKeyword] = useState('')
   // const [selectedFilter, setSelectedFilter] = useState(FILTERS[0].value);
+  const paginationStyles = {
+    item: {
+      fontSize: '1rem',
+      padding: '0.5rem 1rem',
+      margin: '0.25rem',
+      borderRadius: '0.25rem',
+      cursor: 'pointer',
+      background: '#EDF2F7',
+      color: '#4A5568',
+      transition: 'background 0.2s ease-in-out',
+    },
+    activeItem: {
+      background: '#4299E1',
+      color: '#FFF',
+    },
+    disabledItem: {
+      opacity: 0.5,
+      cursor: 'not-allowed',
+    },
+  }
   // const [selectedFilter, setSelectedFilter] = useState<string | null>(FILTERS[0].value);
 
   const debouncedKeyword = useDebounce<string>(keyward)
@@ -85,7 +105,7 @@ export default function Products() {
   // };
 
   return (
-    <div>
+    <div className="mx-2">
       {/* <div className="flex w-96 relative items-center justify-center">
         <IconSearch className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400" />
         <input
@@ -96,16 +116,36 @@ export default function Products() {
         />
       </div> */}
       {/* 광고 Display*/}
-      <Carousel autoplay wrapAround autoplayInterval={3000}>
+      <Carousel
+        autoplay
+        wrapAround
+        autoplayInterval={3000}
+        renderCenterLeftControls={({ previousSlide }) => (
+          <button
+            className="absolute top-1/2 left-0 transform -translate-y-1/2 p-4 bg-customPrimary text-white rounded-full"
+            onClick={previousSlide}
+          >
+            <IconChevronLeft />
+          </button>
+        )}
+        renderCenterRightControls={({ nextSlide }) => (
+          <button
+            className="absolute top-1/2 right-0 transform -translate-y-1/2 p-4 bg-customSecondary text-white rounded-full"
+            onClick={nextSlide}
+          >
+            <IconChevronRight />
+          </button>
+        )}
+      >
         {/* <img src="/image1.png" />
         <img src="/image2.png" />
         <img src="/image3.png" />
         <img src="/image4.png" />
         <img src="/image5.png" /> */}
-        <div className="h-36 mt-4 bg-sky-200 max-w-screen" />
-        <div className="h-36 mt-4 bg-sky-400 max-w-screen" />
-        <div className="h-36 mt-4 bg-sky-500 max-w-screen" />
-        <div className="h-36 mt-4 bg-sky-600 max-w-screen" />
+        <div className="h-60 mt-4 bg-sky-200 max-w-screen" />
+        <div className="h-60 mt-4 bg-sky-400 max-w-screen" />
+        <div className="h-60 mt-4 bg-sky-500 max-w-screen" />
+        <div className="h-60 mt-4 bg-sky-600 max-w-screen" />
       </Carousel>
 
       <div className="mt-[30px] md:px-32 2xl:px-72 ">
@@ -151,7 +191,7 @@ export default function Products() {
         )}
 
         {products && (
-          <div className="w-full grid grid-cols-3 gap-5  2xl:grid-cols-4">
+          <div className="w-full grid grid-cols-3 gap-5 2xl:grid-cols-4 ">
             {products.map((item) => (
               <div
                 key={item.id}
@@ -189,6 +229,7 @@ export default function Products() {
         <div className="w-full flex mt-5">
           {total && (
             <Pagination
+              styles={paginationStyles}
               className="m-auto"
               value={activePage}
               onChange={setPage}
