@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { useSession, signIn } from 'next-auth/react'
@@ -13,7 +13,7 @@ const AllLogin = () => {
   const { data: session, status } = useSession()
   const [errorMessage, setErrorMessage] = useState('')
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
 
     // 같은 아이디와 비밀번호가 있는지 확인

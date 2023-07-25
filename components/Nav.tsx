@@ -147,6 +147,7 @@ const Nav: React.FC<NavProps> = ({
       url: '/auth/login',
       icon: user ? (
         <img
+          className="m-auto"
           src={user.image}
           width={30}
           height={30}
@@ -171,10 +172,11 @@ const Nav: React.FC<NavProps> = ({
     } else if (info === '마이페이지') {
       router.push('/my')
     } else if (info === '로그인') {
-      router.push('/signin')
+      router.push('/auth/signin')
     } else if (info === '회원가입') {
-      router.push('/signin')
+      router.push('/auth/signup')
     }
+    showNav()
   }
 
   return (

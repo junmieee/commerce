@@ -1,9 +1,11 @@
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 const SignupPage = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -21,6 +23,7 @@ const SignupPage = () => {
       if (response.ok) {
         // 회원가입 성공 시 처리할 로직
         console.log('response', response)
+        router.replace('/auth/singin')
       } else {
         // 회원가입 실패 시 처리할 로직
         console.log('signup error')

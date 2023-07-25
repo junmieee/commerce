@@ -31,11 +31,8 @@ export default function Login({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <div className="mb-10 xl:px-96 md:px-56 ">
-      {/* <AllLoginContainer> */}
       <AllLogin />
-      {/* <Google /> */}
       <GoogleLogin />
-      {/* </AllLoginContainer> */}
     </div>
   )
 }

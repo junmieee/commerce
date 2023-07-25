@@ -26,9 +26,13 @@ export const authOptions: NextAuthOptions = {
     }),
     CredentialsProvider({
       id: 'credentials',
-      name: 'Credentials',
+      name: 'Sign in',
       credentials: {
-        name: { label: 'name', type: 'text', placeholder: 'jsmith' },
+        email: {
+          label: 'Email',
+          type: 'email',
+          placeholder: 'hello@example.com',
+        },
         password: { label: 'Password', type: 'password' },
       },
       // async authorize(credentials) {
@@ -48,78 +52,65 @@ export const authOptions: NextAuthOptions = {
       //   return null
 
       // }
-      async authorize(credentials: Icredentials, req) {
-        const user = await prisma.user.findUnique({
-          where: {
-            email: String(credentials.email),
-          },
-          select: {
-            name: true,
-            email: true,
-            password: true,
-          },
-        })
-
-        const isValid = await verifyPassword(
-          credentials.password,
-          user.password
-        )
-
-        if (!user) {
-          throw new Error('No user found!')
-        }
-        if (!isValid) {
-          throw new Error('Password incorrect')
-        }
-        return { name: user.name, email: user.email }
-
-        // const response = await fetch(`${process.env.NEXTAUTH_URL}/api/user/check-credentials`, {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/x-www-form-urlencoded",
-        //     accept: "application/json",
-        //   },
-        //   body: Object.entries(credentials)
-        //     .map((e) => e.join("="))
-        //     .join("&"),
-        // }).then((res) => res.json())
-        //   .catch((err) => {
-        //     return null;
-        //   });
-
-        // if (response) {
-        //   return response;
-        // } else {
-        //   return null;
+      async authorize(credentials) {
+        // if (!credentials?.email || !credentials.password) {
+        //   return null
         // }
 
-        //   const data = await response.json();
-        //   if(response.ok && data?.token) {
-        //   return data;
+        // const user = await prisma.user.findUnique({
+        //   where: {
+        //     email: credentials.email
+        //   }
+        // })
+
+        // if (!user) {
+        //   return null
         // }
-        //     return Promise.reject(new Error(data?.errors));
-        // },
+
+        // const isPasswordValid = await verifyPassword(
+        //   credentials.password,
+        //   user.password
+        // )
+
+        // if (!isPasswordValid) {
+        //   return null
+        // }
+
+        // return {
+        //   id: user.id + '',
+        //   email: user.email,
+        //   name: user.name,
+        //   randomKey: 'Hey cool'
+        // }
+
+        const user = { id: '1', name: 'Ethan', email: 'test!text.com' }
+        return user
       },
     }),
   ],
-  pages: {
-    signIn: '/auth/signin',
-  },
+  // pages: {
+  //   signIn: '/auth/signin',
+  // },
   session: {
     strategy: 'database',
     maxAge: 1 * 24 * 60 * 60,
   },
 
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: ({ token, user }) => {
+      console.log('JWT Callback', { token, user })
       if (user) {
-        token.id = user.id
-        token.email = user.email
+        const u = user as unknown as any
+        return {
+          ...token,
+          id: u.id,
+          randomKey: u.randomKey,
+        }
       }
-
       return token
     },
-    session: async ({ session, user }) => {
+    session: ({ session, user }) => {
+      console.log('Session Callback', { session, user })
       session.id = user.id
 
       return Promise.resolve(session)
