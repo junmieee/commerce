@@ -7,7 +7,7 @@ export default async function Home() {
   return (
     <div>
       <h1>Hello, this is the Home page!</h1>
-      <p>session</p>
+      <p>{JSON.stringify(session)}</p>
     </div>
   )
 }

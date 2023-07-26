@@ -27,14 +27,14 @@ export default function App({
 
   return (
     <SessionProvider session={session}>
-      <GoogleOAuthProvider clientId={CLIENT_ID}>
-        <QueryClientProvider client={queryClient}>
-          <Header />
-          <div className="mb-20">
-            <Component {...pageProps} />
-          </div>
-        </QueryClientProvider>
-      </GoogleOAuthProvider>
+      {/* <GoogleOAuthProvider clientId={CLIENT_ID}> */}
+      <QueryClientProvider client={queryClient}>
+        <Header />
+        <div className="mb-20">
+          <Component {...pageProps} />
+        </div>
+      </QueryClientProvider>
+      {/* </GoogleOAuthProvider> */}
     </SessionProvider>
   )
 }

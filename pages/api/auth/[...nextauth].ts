@@ -8,6 +8,7 @@ import { KAKAO_CLIENT_ID, KAKAO_CLIENT_SECRET } from 'constants/kakaoAuth'
 import { signIn } from 'next-auth/react'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { verifyPassword } from 'hooks/auth'
+import GithubProvider from 'next-auth/providers/github'
 
 interface Icredentials {
   email?: string
@@ -23,6 +24,10 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: CLIENT_ID,
       clientSecret: CLIENT_SECRET,
+    }),
+    GithubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
     }),
     CredentialsProvider({
       id: 'credentials',
@@ -53,50 +58,76 @@ export const authOptions: NextAuthOptions = {
 
       // }
       async authorize(credentials) {
-        // if (!credentials?.email || !credentials.password) {
-        //   return null
-        // }
+        if (!credentials?.email || !credentials.password) {
+          return null
+        }
+        console.log('credentials', credentials)
 
-        // const user = await prisma.user.findUnique({
-        //   where: {
-        //     email: credentials.email
-        //   }
-        // })
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        })
+        if (user) {
+          console.log('found user', user)
+        }
 
-        // if (!user) {
-        //   return null
-        // }
+        if (!user) {
+          return null
+        }
 
-        // const isPasswordValid = await verifyPassword(
-        //   credentials.password,
-        //   user.password
-        // )
+        const isPasswordValid = await verifyPassword(
+          credentials.password,
+          user.password
+        )
 
-        // if (!isPasswordValid) {
-        //   return null
-        // }
+        if (!isPasswordValid) {
+          return null
+        }
 
-        // return {
-        //   id: user.id + '',
-        //   email: user.email,
-        //   name: user.name,
-        //   randomKey: 'Hey cool'
-        // }
-
-        const user = { id: '1', name: 'Ethan', email: 'test!text.com' }
-        return user
+        return {
+          id: user.id + '',
+          email: user.email,
+          name: user.name,
+          randomKey: 'Hey cool',
+        }
       },
     }),
   ],
-  // pages: {
-  //   signIn: '/auth/signin',
-  // },
+  pages: {
+    signIn: '/auth/signin',
+  },
   session: {
     strategy: 'database',
+
     maxAge: 1 * 24 * 60 * 60,
+    updateAge: 24 * 60 * 60,
   },
 
   callbacks: {
+    // async signIn({ user, account, profile, email, credentials }) {
+    //   const isAllowedToSignIn = true
+    //   if (isAllowedToSignIn) {
+    //     return true
+    //   } else {
+    //     // Return false to display a default error message
+    //     console.log('error')
+    //     return false
+    //     // Or you can return a URL to redirect to:
+    //     // return '/unauthorized'
+    //   }
+    // },
+    async signIn({ user, account, profile, email, credentials }) {
+      if (user) {
+        return true
+      }
+      return false
+    },
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith(baseUrl)) return url
+      else if (url.startsWith('/')) return new URL(url, baseUrl).toString()
+      return baseUrl
+    },
     jwt: ({ token, user }) => {
       console.log('JWT Callback', { token, user })
       if (user) {
@@ -108,6 +139,10 @@ export const authOptions: NextAuthOptions = {
         }
       }
       return token
+      // console.log('Session Callback', { token, user })
+      // token.id = user.id
+
+      // return Promise.resolve(token)
     },
     session: ({ session, user }) => {
       console.log('Session Callback', { session, user })

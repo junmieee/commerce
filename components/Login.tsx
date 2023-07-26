@@ -31,6 +31,7 @@ const AllLogin = () => {
       console.log('session', session)
 
       router.replace('/')
+      console.log('result', result)
     } else {
       console.log('failed')
     }

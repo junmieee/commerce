@@ -21,6 +21,7 @@
 //   )
 // }
 
+import Providers from 'components/Providers'
 import Document, {
   Html,
   Head,
@@ -58,6 +59,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          {/* <Providers>{children}</Providers> */}
         </body>
       </Html>
     )
