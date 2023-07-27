@@ -20,6 +20,7 @@ const prisma = new PrismaClient()
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GoogleProvider({
       clientId: CLIENT_ID,
@@ -29,6 +30,7 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
+
     CredentialsProvider({
       id: 'credentials',
       name: 'Sign in',
@@ -130,13 +132,16 @@ export const authOptions: NextAuthOptions = {
     },
     jwt: ({ token, user }) => {
       console.log('JWT Callback', { token, user })
+      // if (user) {
+      //   const u = user as unknown as any
+      //   return {
+      //     ...token,
+      //     id: u.id,
+      //     randomKey: u.randomKey,
+      //   }
+      // }
       if (user) {
-        const u = user as unknown as any
-        return {
-          ...token,
-          id: u.id,
-          randomKey: u.randomKey,
-        }
+        token.id = user.id
       }
       return token
       // console.log('Session Callback', { token, user })

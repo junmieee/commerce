@@ -110,7 +110,7 @@ export default function Header() {
   }
 
   return (
-    <div className="mt-12 mb-12 px-56  sm:px-12">
+    <div className="mt-12 mb-12 px-56  sm:px-12 xl:mx-80">
       <div className="w-full flex h-50 items-center">
         <StyledIcon onClick={() => router.push('/')}>
           <IconHome />

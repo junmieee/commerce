@@ -12,6 +12,8 @@ const nextConfig = {
       'picsum.photos',
       'raw.githubusercontent.com',
       'cdn.shopify.com',
+      'plus.unsplash.com',
+      'static.nike.com',
       'lh3.googleusercontent.com',
       'i.ibb.co',
     ],

@@ -61,9 +61,9 @@ export default function Products() {
   const debouncedKeyword = useDebounce<string>(keyward)
 
   const adImages = [
-    '/path/to/image1.jpg',
-    '/path/to/image2.jpg',
-    '/path/to/image3.jpg',
+    '/images/toa-heftiba-4nXTgoxr6xs-unsplash.jpg',
+    '/images/henri-meilhac-KoT2gBk9rzE-unsplash.jpg',
+    '/images/force-majeure-00tlC0Clfrs-unsplash.jpg',
   ]
 
   const { data: categories } = useQuery<
@@ -118,46 +118,48 @@ export default function Products() {
   // };
 
   return (
-    <div className="mx-2">
-      <div>
-        {session?.user && (
-          <>
-            <p>Name: {session.user.name}</p>
-            <p>Email: {session.user.email}</p>
-          </>
-        )}
-      </div>
-      <Carousel
-        autoplay
-        wrapAround
-        autoplayInterval={3000}
-        renderCenterLeftControls={({ previousSlide }) => (
-          <button
-            className="absolute top-1/2 left-0 transform -translate-y-1/2 p-4 bg-customPrimary text-white rounded-full"
-            onClick={previousSlide}
-          >
-            <IconChevronLeft />
-          </button>
-        )}
-        renderCenterRightControls={({ nextSlide }) => (
-          <button
-            className="absolute top-1/2 right-0 transform -translate-y-1/2 p-4 bg-customSecondary text-white rounded-full"
-            onClick={nextSlide}
-          >
-            <IconChevronRight />
-          </button>
-        )}
-      >
-        {/* <img src="/image1.png" />
+    <div className="mx-2 xl:mx-10 ">
+      <div className="flex xl:px-60 ">
+        <Carousel
+          autoplay
+          wrapAround
+          autoplayInterval={3000}
+          renderCenterLeftControls={({ previousSlide }) => (
+            <button
+              className="absolute top-1/2 left-0 transform -translate-y-1/2 p-4 bg-customPrimary text-white rounded-full"
+              onClick={previousSlide}
+            >
+              <IconChevronLeft />
+            </button>
+          )}
+          renderCenterRightControls={({ nextSlide }) => (
+            <button
+              className="absolute top-1/2 right-0 transform -translate-y-1/2 p-4 bg-customSecondary text-white rounded-full"
+              onClick={nextSlide}
+            >
+              <IconChevronRight />
+            </button>
+          )}
+        >
+          {/* <img src="/image1.png" />
         <img src="/image2.png" />
         <img src="/image3.png" />
         <img src="/image4.png" />
         <img src="/image5.png" /> */}
-        <div className="h-60 mt-4 bg-sky-200 max-w-screen" />
-        <div className="h-60 mt-4 bg-sky-400 max-w-screen" />
-        <div className="h-60 mt-4 bg-sky-500 max-w-screen" />
-        <div className="h-60 mt-4 bg-sky-600 max-w-screen" />
-      </Carousel>
+
+          {adImages.map((url, i) => (
+            <div key={i} className="h-96 mt-4">
+              <Image
+                src={url}
+                width={1000}
+                objectFit="cover"
+                height={300}
+                alt={`Ad Image ${i}`}
+              />
+            </div>
+          ))}
+        </Carousel>
+      </div>
 
       <div className="mt-[30px] md:px-32 2xl:px-72 ">
         {categories && (
