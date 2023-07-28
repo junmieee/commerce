@@ -1,0 +1,49 @@
+import React, { useRef, useEffect } from 'react';
+import Carousel from 'nuka-carousel';
+import Image from 'next/image';
+
+interface CustomCarouselProps {
+    adImages: string[];
+}
+
+const CustomCarousel: React.FC<CustomCarouselProps> = ({ adImages }) => {
+    const carouselRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (carouselRef.current) {
+            const carouselWidth = carouselRef.current.clientWidth;
+            const imageWidth = Math.min(2000, carouselWidth); // Set a maximum width for the images (e.g., 2000)
+            const imageHeight = 300; // Height of the images
+
+            // Get all carousel images and set their dimensions
+            const carouselImages = document.querySelectorAll('.carousel-image');
+            carouselImages.forEach((image: HTMLImageElement) => {
+                image.style.width = `${imageWidth}px`;
+                image.style.height = `${imageHeight}px`;
+            });
+        }
+    }, [adImages]);
+
+    return (
+        <div className= "flex justify-center xl:px-44" ref = { carouselRef } >
+            <Carousel
+            // ... (other carousel configurations)
+            >
+            {
+                adImages.map((url, i) => (
+                    <div key= { i } className = "h-96" >
+                    <Image
+              src={ url }
+              width = { 2000}
+              height = { 300}
+              alt = {`Ad Image ${i}`}
+    className = "carousel-image"
+        />
+        </div>
+        ))}
+</Carousel>
+    < /div>
+  );
+};
+
+export default CustomCarousel;

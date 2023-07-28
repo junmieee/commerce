@@ -63,7 +63,7 @@ export default function Products() {
   const adImages = [
     '/images/toa-heftiba-4nXTgoxr6xs-unsplash.jpg',
     '/images/henri-meilhac-KoT2gBk9rzE-unsplash.jpg',
-    '/images/force-majeure-00tlC0Clfrs-unsplash.jpg',
+    '/images/people-ga1c24c2f0_1920.jpg',
   ]
 
   const { data: categories } = useQuery<
@@ -118,8 +118,8 @@ export default function Products() {
   // };
 
   return (
-    <div className="mx-2 xl:mx-10 ">
-      <div className="flex xl:px-60 ">
+    <div className="mx-2 xl:mx-auto">
+      <div className="flex justify-center xl:px-44 ">
         <Carousel
           autoplay
           wrapAround
@@ -148,13 +148,14 @@ export default function Products() {
         <img src="/image5.png" /> */}
 
           {adImages.map((url, i) => (
-            <div key={i} className="h-96 mt-4">
+            <div key={i} className="h-96 xl:h-[500px]	">
               <Image
                 src={url}
-                width={1000}
-                objectFit="cover"
+                width={2000}
                 height={300}
                 alt={`Ad Image ${i}`}
+                objectFit="cover"
+                objectPosition="center"
               />
             </div>
           ))}
