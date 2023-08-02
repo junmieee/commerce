@@ -21,24 +21,6 @@ export default function Products() {
       .then((data) => setProducts(data.items))
   }, [])
 
-  // const { data: product } = useQuery<
-  //   { items: products[] },
-  //   unknown,
-  //   products[]
-  // >(
-  //   [
-  //     `/api/get-products?skip=${0
-  //     }&take=${TAKE}&contains=${search}`,
-  //   ],
-  //   () =>
-  //     fetch(
-  //       `/api/get-products?skip=${0}&take=${TAKE}&contains=${search}`
-  //     ).then((res) => res.json()),
-  //   {
-  //     select: (data) => data.items,
-  //   }
-  // )
-
   const getProducts = useCallback(() => {
     const next = skip + TAKE
     fetch(`/api/get-products?skip=${0}&take=${TAKE}&contains=${search}`)
@@ -54,36 +36,42 @@ export default function Products() {
 
   return (
     <div className="px-36 mt-36 mb-36 mx-auto	">
-      {products && (
-        <div className="grid lg:grid-cols-4 gap-5 md:grid-cols-3">
-          {products.map((item) => (
-            <div key={item.id}>
-              <Image
-                className="rounded"
-                alt={item.name}
-                src={item.image_url ?? ''}
-                width={300}
-                height={200}
-                placeholder="blur"
-                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
-              />
-              <div className="flex flex-col">
-                <span>{item.name}</span>
-                <span>{item.price.toLocaleString('ko-KR')}원</span>
+      {products && products.length > 0 ? (
+        <div>
+          <div className="grid lg:grid-cols-4 gap-5 md:grid-cols-3">
+            {products.map((item) => (
+              <div key={item.id}>
+                <Image
+                  className="rounded"
+                  alt={item.name}
+                  src={item.image_url ?? ''}
+                  width={300}
+                  height={200}
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg=="
+                />
+                <div className="flex flex-col">
+                  <span>{item.name}</span>
+                  <span>{item.price.toLocaleString('ko-KR')}원</span>
+                </div>
+                <span className="text-zinc-400">
+                  {item.category_id === 0 && '의류'}
+                </span>
               </div>
-              <span className="text-zinc-400">
-                {item.category_id === 0 && '의류'}
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
+          <button
+            className="w-full rounded-full mt-20 bg-zinc-200 p-4"
+            onClick={getProducts}
+          >
+            더보기
+          </button>
+        </div>
+      ) : (
+        <div className="flex justify-center items-center h-60">
+          <p className="font-medium text-lg	">찾으시는 제품이 없습니다.</p>
         </div>
       )}
-      <button
-        className="w-full rounded-full mt-20 bg-zinc-200 p-4"
-        onClick={getProducts}
-      >
-        더보기
-      </button>
     </div>
   )
 }

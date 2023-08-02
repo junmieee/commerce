@@ -22,12 +22,6 @@ export default function Login({
       <div className="mb-8">
         <AllLogin />
       </div>
-      <div className="reletive">
-        <div className="absolute w-full border-t border-gray-300" />
-        <div className="relative -top-3 text-center">
-          <span className="bg-white px-2 text-sm text-gray-500">Or</span>
-        </div>
-      </div>
 
       <GoogleLogin />
       <GithubLogin />
