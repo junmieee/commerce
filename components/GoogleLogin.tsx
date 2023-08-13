@@ -5,7 +5,7 @@ export function GoogleLogin() {
   const { data: session } = useSession()
 
   return (
-    <div className="mb-4 h-300 w-300 flex justify-center items-center">
+    <div className="mb-4 mt-6 h-300 w-300 flex justify-center items-center">
       {session ? (
         <div>
           Signed in as {session.user?.email} <br />

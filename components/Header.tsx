@@ -19,6 +19,7 @@ import { useQuery } from '@tanstack/react-query'
 import { products } from '@prisma/client'
 
 const SearchInput = styled(Input)`
+  position: relative;
   margin: auto;
   width: 50%;
   input:focus {
@@ -118,12 +119,13 @@ export default function Header() {
 
         {/* <span className="" /> */}
         <SearchInput
-          icon={<IconSearch />}
+          icon={<IconSearch style={{ position: 'absolute', right: '10px' }} />}
           placeholder="검색어를 입력해주세요."
           value={keyward}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
         />
+
         <StyledIcon className="mr-4" onClick={() => router.push('/wishlist')}>
           <IconHeart />
         </StyledIcon>

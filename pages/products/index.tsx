@@ -40,7 +40,15 @@ export default function Products() {
         <div>
           <div className="grid lg:grid-cols-4 gap-5 md:grid-cols-3">
             {products.map((item) => (
-              <div key={item.id}>
+              <div
+                key={item.id}
+                onClick={() =>
+                  router.push({
+                    pathname: `/products/${item.id}`,
+                    query: { id: item.id },
+                  })
+                }
+              >
                 <Image
                   className="rounded"
                   alt={item.name}
