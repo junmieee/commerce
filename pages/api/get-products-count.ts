@@ -13,10 +13,7 @@ async function getProductsCount(category: number, contains: string) {
 
   const where =
     category && category !== -1
-      ? {
-          category_id: category,
-          ...constainsCondition,
-        }
+      ? { category_id: category, ...constainsCondition }
       : constainsCondition
       ? constainsCondition
       : undefined
