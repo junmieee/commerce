@@ -1,26 +1,27 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { PrismaClient } from '@prisma/client'
 import jwtDecode from 'jwt-decode'
-import fetch from 'node-fetch'
 
 const prisma = new PrismaClient()
 
-async function signUp(userInfo: any) {
-  const { name, email, picture } = userInfo
+async function signUp(credential: any) {
+  // console.log('decoded', decoded)
+  const decoded: { name: string; email: string; picture: string } =
+    jwtDecode(credential)
 
   try {
     const response = await prisma.user.upsert({
       where: {
-        email: email,
+        email: decoded.email,
       },
       update: {
-        name: name,
-        image: picture,
+        name: decoded.name,
+        image: decoded.picture,
       },
       create: {
-        email: email,
-        name: name,
-        image: picture,
+        email: decoded.email,
+        name: decoded.name,
+        image: decoded.picture,
       },
     })
 
@@ -31,6 +32,13 @@ async function signUp(userInfo: any) {
   } catch (error) {
     console.error(error)
   }
+
+  // try {
+  //   console.log('decoded', decoded)
+  //   return decoded
+  // } catch (error) {
+  //   console.log(error)
+  // }
 }
 
 type Data = {
@@ -43,16 +51,19 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const { credential } = req.query
-  const accessToken = String(credential)
+  // const accessToken = String(credential)
 
   try {
-    const userInfoResponse = await fetch(
-      `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`
-    )
-    const userInfo = await userInfoResponse.json()
-    const products = await signUp(userInfo)
-    console.log('products', products)
+    // const userInfoResponse = await fetch(
+    //   `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${accessToken}`
+    // )
+    // const userInfo = await userInfoResponse.json()
+    // const products = await signUp(userInfo)
+    // console.log('products', products)
 
+    // res.status(200).json({ items: products, message: 'Success' })
+
+    const products = await signUp(String(credential))
     res.status(200).json({ items: products, message: 'Success' })
   } catch (error) {
     console.error(error)

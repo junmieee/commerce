@@ -19,12 +19,14 @@ interface Icredentials {
 const prisma = new PrismaClient()
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
-  secret: process.env.NEXTAUTH_SECRET,
+  adapter: PrismaAdapter(prisma as any),
+  // secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GoogleProvider({
-      clientId: CLIENT_ID,
-      clientSecret: CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT as string,
+      // clientId: CLIENT_ID,
+      clientSecret: process.env.GOOGLE_SECRET as string,
+      // clientSecret: CLIENT_SECRET
     }),
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID as string,
@@ -99,63 +101,40 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/auth/signin',
   },
+  // session: {
+  //   strategy: 'database',
+  //   maxAge: 1 * 24 * 60 * 60,
+  //   updateAge: 24 * 60 * 60,
+  // },
   session: {
     strategy: 'database',
-
     maxAge: 1 * 24 * 60 * 60,
     updateAge: 24 * 60 * 60,
   },
 
   callbacks: {
-    // async signIn({ user, account, profile, email, credentials }) {
-    //   const isAllowedToSignIn = true
-    //   if (isAllowedToSignIn) {
-    //     return true
-    //   } else {
-    //     // Return false to display a default error message
-    //     console.log('error')
-    //     return false
-    //     // Or you can return a URL to redirect to:
-    //     // return '/unauthorized'
-    //   }
-    // },
-    async signIn({ user, account, profile, email, credentials }) {
-      if (user) {
-        return true
-      }
-      return false
-    },
-    async redirect({ url, baseUrl }) {
-      if (url.startsWith(baseUrl)) return url
-      else if (url.startsWith('/')) return new URL(url, baseUrl).toString()
-      return baseUrl
-    },
-    jwt: ({ token, user }) => {
-      console.log('JWT Callback', { token, user })
-      // if (user) {
-      //   const u = user as unknown as any
-      //   return {
-      //     ...token,
-      //     id: u.id,
-      //     randomKey: u.randomKey,
-      //   }
-      // }
-      if (user) {
-        token.id = user.id
-      }
-      return token
-      // console.log('Session Callback', { token, user })
-      // token.id = user.id
-
-      // return Promise.resolve(token)
-    },
     session: ({ session, user }) => {
       console.log('Session Callback', { session, user })
       session.id = user.id
 
       return Promise.resolve(session)
     },
+    // jwt: ({ token, user }) => {
+    //   if (user) {
+    //     const u = user as unknown as any;
+    //     return {
+    //       ...token,
+    //       id: u.id,
+    //       randomKey: u.randomKey,
+    //     };
+    //   }
+    //   return token;
+    // },
   },
 }
 
+// const handler = NextAuth(authOptions)
+
 export default NextAuth(authOptions)
+
+// export { handler as GET, handler as POST }

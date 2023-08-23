@@ -29,7 +29,7 @@ model products {
   @@index([category_id])
 }
 
-// model user {
+// model userInfo {
 //   id       String  @id @default(cuid())
 //   name     String?
 //   email    String? @unique

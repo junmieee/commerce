@@ -16,6 +16,11 @@ export function GoogleLogin() {
           <button
             className="flex bg-white text-gray-500 border border-gray-300 rounded-md px-2 py-3 text-sm font-medium transition duration-300 ease-in-out hover:bg-gray-100"
             onClick={() => signIn('google')}
+            //   onClick={(credentialResponse) => {
+            //     fetch(`/api/auth/get-token?credential=${credentialResponse.credential}`)
+
+            //     // console.log('credentialResponse', credentialResponse.credential)
+            // }}
           >
             <img
               src="/images/google.svg"
