@@ -12,9 +12,6 @@ declare global {
   }
 }
 
-const GOOGLE_CLIENT =
-  '192426945001-gqeam0up9he8370qu651afjgrfko1hmk.apps.googleusercontent.com'
-
 export default function App({
   Component,
   pageProps: { session, ...pageProps },

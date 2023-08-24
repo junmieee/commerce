@@ -9,6 +9,7 @@ import { signIn } from 'next-auth/react'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { verifyPassword } from 'hooks/auth'
 import GithubProvider from 'next-auth/providers/github'
+import Providers from 'next-auth/providers'
 
 interface Icredentials {
   email?: string
@@ -19,7 +20,7 @@ interface Icredentials {
 const prisma = new PrismaClient()
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma as any),
+  adapter: PrismaAdapter(prisma),
   // secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GoogleProvider({
@@ -28,75 +29,108 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_SECRET as string,
       // clientSecret: CLIENT_SECRET
     }),
-    GithubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID as string,
-      clientSecret: process.env.GITHUB_SECRET as string,
-    }),
+    // CredentialsProvider({
+    //   name: "credentials",
+    //   credentials: {
+    //     email: { label: "email", type: "email" },
+    //     password: { label: "password", type: "password" },
+    //   },
+    //   async authorize(credentials) {
+    //     if (!credentials?.email || !credentials?.password)
+    //       throw new Error("Invalid credentials")
 
-    CredentialsProvider({
-      id: 'credentials',
-      name: 'Sign in',
-      credentials: {
-        email: {
-          label: 'Email',
-          type: 'email',
-          placeholder: 'hello@example.com',
-        },
-        password: { label: 'Password', type: 'password' },
-      },
-      // async authorize(credentials) {
+    //     try {
+    //       const user = await prisma.user.findFirst({
+    //         where: { email: credentials.email },
+    //       })
+    //       if (!user || !user?.hashedPassword)
+    //         throw new Error("Invalid credentials")
 
-      //   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/user/check-credentials`, {
-      //     method: 'POST',
-      //     body: JSON.stringify(credentials),
-      //     headers: { "Content-Type": "application/json" }
-      //   })
-      //   const user = await res.json()
+    //       const isValid = await bcrypt.compare(
+    //         credentials.password,
+    //         user.hashedPassword
+    //       )
+    //       if (!isValid) throw new Error("Invalid credentials")
+    //       return user
+    //     } catch (e: any) {
+    //       throw new Error("Invalid credentials")
+    //     }
+    //   },
+    // }),
+    // Providers.Google({
+    //   clientId: process.env.GOOGLE_CLIENT as string,
+    //   clientSecret: process.env.GOOGLE_SECRET as string,
 
-      //   // If no error and we have user data, return it
-      //   if (res.ok && user) {
-      //     return user
-      //   }
-      //   // Return null if user data could not be retrieved
-      //   return null
+    // }),
+    // GithubProvider({
+    //   clientId: process.env.GITHUB_CLIENT_ID as string,
+    //   clientSecret: process.env.GITHUB_SECRET as string,
+    // }),
 
-      // }
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) {
-          return null
-        }
-        console.log('credentials', credentials)
+    // CredentialsProvider({
+    //   id: 'credentials',
+    //   name: 'Sign in',
+    //   credentials: {
+    //     email: {
+    //       label: 'Email',
+    //       type: 'email',
+    //       placeholder: 'hello@example.com',
+    //     },
+    //     password: { label: 'Password', type: 'password' },
+    //   },
+    // async authorize(credentials) {
 
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email,
-          },
-        })
-        if (user) {
-          console.log('found user', user)
-        }
+    //   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/user/check-credentials`, {
+    //     method: 'POST',
+    //     body: JSON.stringify(credentials),
+    //     headers: { "Content-Type": "application/json" }
+    //   })
+    //   const user = await res.json()
 
-        if (!user) {
-          return null
-        }
+    //   // If no error and we have user data, return it
+    //   if (res.ok && user) {
+    //     return user
+    //   }
+    //   // Return null if user data could not be retrieved
+    //   return null
 
-        const isPasswordValid = await verifyPassword(
-          credentials.password,
-          user.password
-        )
+    // }
+    //   async authorize(credentials) {
+    //     if (!credentials?.email || !credentials.password) {
+    //       return null
+    //     }
+    //     console.log('credentials', credentials)
 
-        if (!isPasswordValid) {
-          return null
-        }
+    //     const user = await prisma.user.findUnique({
+    //       where: {
+    //         email: credentials.email,
+    //       },
+    //     })
+    //     if (user) {
+    //       console.log('found user', user)
+    //     }
 
-        return {
-          id: user.id + '',
-          email: user.email,
-          name: user.name,
-          randomKey: 'Hey cool',
-        }
-      },
-    }),
+    //     if (!user) {
+    //       return null
+    //     }
+
+    //     const isPasswordValid = await verifyPassword(
+    //       credentials.password,
+    //       user.password
+    //     )
+
+    //     if (!isPasswordValid) {
+    //       return null
+    //     }
+
+    //     return {
+    //       id: user.id + '',
+    //       email: user.email,
+    //       name: user.name,
+    //       randomKey: 'Hey cool',
+    //     }
+    //   },
+    // }),
   ],
   pages: {
     signIn: '/auth/signin',
@@ -113,8 +147,8 @@ export const authOptions: NextAuthOptions = {
   },
 
   callbacks: {
-    session: ({ session, user }) => {
-      console.log('Session Callback', { session, user })
+    session: ({ session, user, token }) => {
+      console.log('Session Callback', { session, user, token })
       session.id = user.id
 
       return Promise.resolve(session)
