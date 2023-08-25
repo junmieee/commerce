@@ -8,7 +8,7 @@ export function GithubLogin() {
   const callbackUrl = searchParams.get('callbackUrl') || '/my'
 
   return (
-    <div className="mb-10 h-300 w-300 flex justify-center items-center">
+    <div className="mb-4 h-300 w-300 flex justify-center items-center">
       {session ? (
         <div>
           Signed in as {session.user?.email} <br />
@@ -18,7 +18,7 @@ export function GithubLogin() {
         <div>
           <button
             className="flex bg-white text-gray-500 border border-gray-300 rounded-md px-2 py-3 text-sm font-medium transition duration-300 ease-in-out hover:bg-gray-100"
-            onClick={() => signIn('github', { callbackUrl })}
+            onClick={() => signIn('github')}
           >
             <img
               src="/images/github.svg"

@@ -1,5 +1,5 @@
 import { GoogleLogin } from 'components/GoogleLogin'
-import KakaoLogin from 'components/Login'
+import { KakaoLogin } from 'components/KakaoLogin'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import type {
@@ -25,6 +25,7 @@ export default function Login({
 
       <GoogleLogin />
       <GithubLogin />
+      <KakaoLogin />
     </div>
   )
 }

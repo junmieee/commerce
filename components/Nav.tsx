@@ -51,7 +51,6 @@ const NavWrapper = styled.div<NavWrapperProps>`
 const NavSection = styled.section`
   margin-bottom: 30px;
   padding: 0 30px;
-
   &:last-child {
     margin-bottom: 0;
   }
@@ -174,7 +173,7 @@ const Nav: React.FC<NavProps> = ({
     } else if (info === '로그인') {
       router.push('/auth/signin')
     } else if (info === '회원가입') {
-      router.push('/auth/signup')
+      router.push('/auth/signin')
     }
     showNav()
   }
