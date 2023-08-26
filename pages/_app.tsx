@@ -26,7 +26,7 @@ export default function App({
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
         <Header />
-        <div className="mb-20 ">
+        <div className="mb-20 mx-10">
           <Component {...pageProps} />
         </div>
         <ReactQueryDevtools initialIsOpen={false} />

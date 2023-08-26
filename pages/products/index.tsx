@@ -30,9 +30,7 @@ export default function Products() {
         setProducts(list)
       })
     setSkip(next)
-  }, [skip, products])
-
-  console.log('products', products)
+  }, [skip, products, search])
 
   return (
     <div className="px-36 mt-36 mb-36 mx-auto	">

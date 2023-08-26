@@ -161,7 +161,7 @@ export default function Products() {
         </Carousel>
       </div>
 
-      <div className="mt-[30px] md:px-32 2xl:px-72 ">
+      <div className="mt-[30px] md:px-10 2xl:px-72 ">
         {categories && (
           <div className="mb-4 flex justify-between">
             <SegmentedControl

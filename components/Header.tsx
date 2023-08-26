@@ -21,11 +21,26 @@ import { products } from '@prisma/client'
 const SearchInput = styled(Input)`
   position: relative;
   margin: auto;
+  margin-right: 6px;
   width: 50%;
   input:focus {
     border-color: #4c4c4c;
     box-shadow: 0 0 0 2px rgba(76, 76, 76, 0.3);
   }
+`
+
+const SearchBtn = styled.button`
+  display: flex;
+  width: 3rem;
+  height: 2rem;
+  background-color: purple;
+  left: 2px;
+  margin-right: 3rem;
+  border-radius: 10px;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
 `
 
 const StyledIcon = styled.div`
@@ -118,13 +133,21 @@ export default function Header() {
         </StyledIcon>
 
         {/* <span className="" /> */}
+
         <SearchInput
-          icon={<IconSearch style={{ position: 'absolute', right: '10px' }} />}
+          icon={
+            <IconSearch
+              style={{ position: 'absolute', right: '4px', left: '8px' }}
+            />
+          }
           placeholder="검색어를 입력해주세요."
           value={keyward}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
         />
+        <SearchBtn onClick={handleSearch}>
+          <IconSearch />
+        </SearchBtn>
 
         <StyledIcon className="mr-4" onClick={() => router.push('/wishlist')}>
           <IconHeart />

@@ -13,7 +13,7 @@ export function KakaoLogin() {
         </div>
       ) : (
         <div className="">
-          <button onClick={() => signIn('kakao')}>
+          <button onClick={() => signIn('kakao', { callbackUrl: '/' })}>
             <img
               src="/images/kakao_login_medium_narrow.png"
               alt="Google Logo"

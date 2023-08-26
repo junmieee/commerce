@@ -313,9 +313,9 @@ export default function Products(props: {
             >
               구매하기
             </Button>
-            <div className="text-sm text-zinc-300">
+            {/* <div className="text-sm text-zinc-300">
               등록: {format(new Date(product.createdAt), 'yyyy년 m월 d일')}
-            </div>
+            </div> */}
           </div>
         </div>
       ) : (
