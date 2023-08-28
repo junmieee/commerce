@@ -1,6 +1,12 @@
 import { useSession, signIn, signOut } from 'next-auth/react'
-import Button from './Button'
+import styled from '@emotion/styled'
 
+const Button = styled.button`
+  padding: 16px;
+  border-radius: 8px;
+  background-color: black;
+  color: rgb(255, 255, 255);
+`
 export function GoogleLogin() {
   const { data: session } = useSession()
 
