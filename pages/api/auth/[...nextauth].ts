@@ -62,7 +62,8 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     session: ({ session, user, token }) => {
       console.log('Session Callback', { session, user, token })
-      session.id = user.id
+
+      // session.id = user.id
 
       return Promise.resolve(session)
     },

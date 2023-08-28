@@ -31,13 +31,14 @@ export default async function handler(
 ) {
   const session = await getServerSession(req, res, authOptions)
   const { item } = JSON.parse(req.body)
+
   if (session == null) {
     res.status(200).json({ items: [], message: 'no Session' })
     return
   }
 
   try {
-    const wishlist = await addCart(String(session.id), item)
+    const wishlist = await addCart(String(session.user?.email), item)
     res.status(200).json({ items: wishlist, message: 'Success' })
   } catch (error) {
     console.error(error)

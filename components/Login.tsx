@@ -26,10 +26,7 @@ const AllLogin = () => {
       redirect: false,
     })
 
-    if (!result.error) {
-      console.log('success', result)
-      console.log('session', session)
-
+    if (!result?.error) {
       router.replace('/')
       console.log('result', result)
     } else {
