@@ -18,17 +18,6 @@ import useDebounce from 'hooks/useDebounce'
 import { useQuery } from '@tanstack/react-query'
 import { products } from '@prisma/client'
 
-const SearchInput = styled(Input)`
-  position: relative;
-  margin: auto;
-  margin-right: 6px;
-  width: 50%;
-  :focus {
-    border-color: #4c4c4c;
-    box-shadow: 0 0 0 2px rgba(76, 76, 76, 0.3);
-  }
-`
-
 const SearchBtn = styled.button`
   display: flex;
   width: 3rem;
