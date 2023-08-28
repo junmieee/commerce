@@ -19,7 +19,7 @@ export default function Products() {
     fetch(`/api/get-products?skip=${0}&take=${TAKE}&contains=${search}`)
       .then((res) => res.json())
       .then((data) => setProducts(data.items))
-  }, [])
+  }, [search])
 
   const getProducts = useCallback(() => {
     const next = skip + TAKE

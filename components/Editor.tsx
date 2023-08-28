@@ -3,7 +3,13 @@ import dynamic from 'next/dynamic'
 import React, { Dispatch, SetStateAction } from 'react'
 import { EditorProps, EditorState } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import Button from './Button'
+
+const Button = styled.button`
+  padding: 16px;
+  border-radius: 8px;
+  background-color: black;
+  color: rgb(255, 255, 255);
+`
 
 const Editor = dynamic<EditorProps>(
   () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
