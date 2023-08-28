@@ -23,7 +23,7 @@ const SearchInput = styled(Input)`
   margin: auto;
   margin-right: 6px;
   width: 50%;
-  input:focus {
+  :focus {
     border-color: #4c4c4c;
     box-shadow: 0 0 0 2px rgba(76, 76, 76, 0.3);
   }
@@ -134,7 +134,8 @@ export default function Header() {
 
         {/* <span className="" /> */}
 
-        <SearchInput
+        <Input
+          className="relative m-auto mr-6 w-1/2  focus:border-purple-100	 "
           icon={
             <IconSearch
               style={{ position: 'absolute', right: '4px', left: '8px' }}
