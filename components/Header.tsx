@@ -129,7 +129,7 @@ export default function Header() {
 
         {user ? (
           <img
-            // src={user?.image}
+            src={user.image || ''}
             width={30}
             height={30}
             style={{ borderRadius: '50%', cursor: 'pointer' }}
