@@ -62,25 +62,6 @@ export default function Header() {
 
   const router = useRouter()
 
-  // const { data: products } = useQuery<
-  //   { items: products[] },
-  //   unknown,
-  //   products[]
-  // >(
-  //   [
-  //     `/api/get-products?skip=${TAKE * (activePage - 1)
-  //     }&take=${TAKE}&category=${selectedCategory}&orderBy=${selectedFilter}&contains=${searchKeyword}`,
-  //   ],
-  //   () =>
-  //     fetch(
-  //       `/api/get-products?skip=${TAKE * (activePage - 1)
-  //       }&take=${TAKE}&category=${selectedCategory}&orderBy=${selectedFilter}&contains=${searchKeyword}`
-  //     ).then((res) => res.json()),
-  //   {
-  //     select: (data) => data.items,
-  //   }
-  // )
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value)
   }
@@ -148,7 +129,7 @@ export default function Header() {
 
         {user ? (
           <img
-            src={user?.image}
+            // src={user?.image}
             width={30}
             height={30}
             style={{ borderRadius: '50%', cursor: 'pointer' }}

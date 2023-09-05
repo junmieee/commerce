@@ -41,7 +41,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 }
 
-const WISTHLIST_QUERY_KEY = '/api/get-wishlist'
+const WISHLIST_QUERY_KEY = '/api/get-wishlist'
 
 export interface CommentItemType extends Comment, OrderItem {}
 
@@ -54,6 +54,7 @@ export default function Products(props: {
   const { data: session } = useSession()
   const router = useRouter()
   const { id: productId } = router.query
+
   const [editorState] = useState<EditorState | undefined>(() =>
     props.product.contents
       ? EditorState.createWithContent(
@@ -64,15 +65,15 @@ export default function Products(props: {
 
   const [quantity, setQuantity] = useState<number | undefined>(1)
 
-  const { data: wishlist } = useQuery([WISTHLIST_QUERY_KEY], () =>
-    fetch(WISTHLIST_QUERY_KEY)
+  const { data: wishlist } = useQuery([WISHLIST_QUERY_KEY], () =>
+    fetch(WISHLIST_QUERY_KEY)
       .then((res) => res.json())
       .then((data) => data.items)
   )
 
   const { mutate } = useMutation<unknown, unknown, string, any>(
-    (productId: string) =>
-      fetch(`/api/update-wishlist`, {
+    (productId) =>
+      fetch('/api/update-wishlist', {
         method: 'POST',
         body: JSON.stringify({ productId }),
       })
@@ -80,29 +81,28 @@ export default function Products(props: {
         .then((res) => res.items),
     {
       onMutate: async (productId) => {
-        // (so they don't overwrite our optimistic update)
-        await queryClient.cancelQueries([WISTHLIST_QUERY_KEY])
+        await queryClient.cancelQueries([WISHLIST_QUERY_KEY])
 
         // Snapshot the previous value
-        const previous = queryClient.getQueryData([WISTHLIST_QUERY_KEY])
+        const previous = queryClient.getQueryData([WISHLIST_QUERY_KEY])
 
         // Optimistically update to the new value
-        queryClient.setQueryData<string[]>([WISTHLIST_QUERY_KEY], (old) =>
+        queryClient.setQueryData<string[]>([WISHLIST_QUERY_KEY], (old) =>
           old
             ? old.includes(String(productId))
-              ? old.filter((id) => id != String(productId))
+              ? old.filter((id) => id !== String(productId))
               : old.concat(String(productId))
             : []
         )
+
         // Return a context object with the snapshotted value
         return { previous }
       },
-      onError: (error, _, context) => {
-        queryClient.setQueriesData([WISTHLIST_QUERY_KEY], context.previous)
-        console.error(error)
+      onError: (__, _, context) => {
+        queryClient.setQueryData([WISHLIST_QUERY_KEY], context.previous)
       },
       onSuccess: () => {
-        queryClient.invalidateQueries([WISTHLIST_QUERY_KEY])
+        queryClient.invalidateQueries([WISHLIST_QUERY_KEY])
       },
     }
   )
@@ -114,7 +114,7 @@ export default function Products(props: {
     any
   >(
     (item) =>
-      fetch(`/api/add-cart`, {
+      fetch('/api/add-cart', {
         method: 'POST',
         body: JSON.stringify({ item }),
       })
@@ -137,7 +137,7 @@ export default function Products(props: {
     any
   >(
     (items) =>
-      fetch(`/api/add-order`, {
+      fetch('/api/add-order', {
         method: 'POST',
         body: JSON.stringify({ items }),
       })

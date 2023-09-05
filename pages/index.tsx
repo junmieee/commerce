@@ -140,14 +140,8 @@ export default function Products() {
             </button>
           )}
         >
-          {/* <img src="/image1.png" />
-        <img src="/image2.png" />
-        <img src="/image3.png" />
-        <img src="/image4.png" />
-        <img src="/image5.png" /> */}
-
           {adImages.map((url, i) => (
-            <div key={i} className="h-96 xl:h-[500px]	">
+            <div key={i} className="h-96 xl:h-[500px]">
               <Image
                 src={url}
                 width={2000}
@@ -161,7 +155,7 @@ export default function Products() {
         </Carousel>
       </div>
 
-      <div className="mt-[30px] md:px-10 2xl:px-72 ">
+      <div className="mt-[30px] md:px-10 2xl:px-72 xl:mx-36 ">
         {categories && (
           <div className="mb-4 flex justify-between">
             <SegmentedControl
@@ -204,7 +198,7 @@ export default function Products() {
         )}
 
         {products && (
-          <div className="w-full grid grid-cols-3 gap-5 2xl:grid-cols-4 ">
+          <div className="w-full grid grid-cols-3 gap-5 2xl:grid-cols-4  ">
             {products.map((item) => (
               <div
                 key={item.id}

@@ -26,18 +26,13 @@ const prisma = new PrismaClient()
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
-  // secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GoogleProvider({
-      //       clientId: process.env.GOOGLE_CLIENT as string,
-      //       clientSecret: process.env.GOOGLE_SECRET as string,
       clientId: CLIENT_ID as string,
       clientSecret: CLIENT_SECRET as string,
     }),
     GithubProvider({
-      // clientId: process.env.GITHUB_CLIENT_ID as string,
       clientId: GITHUB_CLIENT_ID as string,
-      // clientSecret: process.env.GITHUB_SECRET as string
       clientSecret: GITHUB_SECRET as string,
     }),
     KaKaoProvider({
@@ -60,11 +55,8 @@ export const authOptions: NextAuthOptions = {
   },
 
   callbacks: {
-    session: ({ session, user, token }) => {
-      console.log('Session Callback', { session, user, token })
-
-      // session.id = user.id
-
+    session: async ({ session, user }) => {
+      session.id = user.id
       return Promise.resolve(session)
     },
     // jwt: ({ token, user }) => {
