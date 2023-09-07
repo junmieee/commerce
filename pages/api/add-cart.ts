@@ -31,7 +31,6 @@ export default async function handler(
 ) {
   const session = await getServerSession(req, res, authOptions)
   const { item } = JSON.parse(req.body)
-
   if (session == null) {
     res.status(200).json({ items: [], message: 'no Session' })
     return
