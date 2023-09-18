@@ -20,7 +20,7 @@ export default function Wishlist() {
   )
   return (
     <div>
-      <p className="text-2xl mb-4">내가 찜한 상품</p>
+      <p className="text-2xl mb-4 ml-48 text-slate-900">내가 찜한 상품</p>
       {products && (
         <div className="grid grid-cols-3 gap-5">
           {products.map((item) => (

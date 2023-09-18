@@ -251,7 +251,7 @@ export default function Products(props: {
             <div className="flex space-x-3">
               <Button
                 leftIcon={<IconShoppingCart size={20} stroke={1.5} />}
-                style={{ backgroundColor: 'black' }}
+                style={{ backgroundColor: 'rgb(247, 159, 31)' }}
                 radius="xl"
                 size="md"
                 styles={{
@@ -296,7 +296,7 @@ export default function Products(props: {
               </Button>
             </div>
             <Button
-              style={{ backgroundColor: 'black' }}
+              style={{ backgroundColor: 'rgb(247, 159, 31)' }}
               radius="xl"
               size="md"
               styles={{

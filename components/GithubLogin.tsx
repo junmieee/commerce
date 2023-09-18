@@ -24,16 +24,16 @@ export function GithubLogin() {
       ) : (
         <div>
           <button
-            className="flex bg-white text-gray-500 border border-gray-300 rounded-md px-2 py-3 text-sm font-medium transition duration-300 ease-in-out hover:bg-gray-100"
+            className="flex bg-white text-gray-500 border border-gray-300 rounded-md px-6 py-3 text-sm font-medium transition duration-300 ease-in-out hover:bg-gray-100"
             onClick={() => signIn('github')}
           >
             <img
               src="/images/github.svg"
               alt="Google Logo"
-              className="mr-2 border-none"
+              className="mr-2 border-none mx-auto my-auto"
               style={{ width: '20px', height: '20px' }}
             />
-            <p className="font-sans">깃허브 로그인하기</p>
+            <p className="font-sans text-lg	">깃허브 로그인하기</p>
           </button>
         </div>
       )}

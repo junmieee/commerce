@@ -22,7 +22,7 @@ const SearchBtn = styled.button`
   display: flex;
   width: 3rem;
   height: 2rem;
-  background-color: purple;
+  background-color: #747d8c;
   left: 2px;
   margin-right: 3rem;
   border-radius: 10px;

@@ -20,7 +20,7 @@ export function GoogleLogin() {
       ) : (
         <div>
           <button
-            className="flex bg-white text-gray-500 border border-gray-300 rounded-md px-2 py-3 text-sm font-medium transition duration-300 ease-in-out hover:bg-gray-100"
+            className="flex bg-white text-gray-500 border border-gray-300 rounded-md px-6 py-3 text-sm font-medium transition duration-300 ease-in-out hover:bg-gray-100"
             onClick={() => signIn('google')}
             //   onClick={(credentialResponse) => {
             //     fetch(`/api/auth/get-token?credential=${credentialResponse.credential}`)
@@ -31,10 +31,10 @@ export function GoogleLogin() {
             <img
               src="/images/google.svg"
               alt="Google Logo"
-              className="mr-2 border-none"
+              className="mr-2 border-none mx-auto my-auto"
               style={{ width: '20px', height: '20px' }}
             />
-            <p className="font-sans">구글로 로그인하기</p>
+            <p className="font-sans text-lg	">구글로 로그인하기</p>
           </button>
         </div>
       )}
