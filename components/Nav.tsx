@@ -143,7 +143,7 @@ const Nav: React.FC<NavProps> = ({
     { name: '찜', url: '/wishlist', icon: <AiOutlineHeart /> },
     {
       name: '내 정보',
-      url: '/auth/login',
+      url: '/auth/signin',
       icon: user ? (
         <img
           className="m-auto"
