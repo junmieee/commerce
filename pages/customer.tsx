@@ -2,12 +2,12 @@ import React from 'react'
 
 const customer = () => {
   return (
-    <div className="flex justify-center items-center ">
+    <div className="flex justify-center items-center divide-x-8">
       <div className="flex flex-col space-y-4">
-        <div>고객센터</div>
+        <p className="text-xl font-semibold">고객센터</p>
         <div className="flex">
-          <p>0000-0000 </p>
-          <p>월 ~ 토일 오전 7시 - 오후 6시</p>
+          <p className="font-bold text-3xl">0000-0000</p>
+          <p className="mt-2">&nbsp;&nbsp;월 ~ 토일 오전 7시 - 오후 6시</p>
         </div>
         <div className="flex">
           <div className="border-2 flex justify-center items-center px-2 mr-2 rounded-md">
@@ -28,7 +28,7 @@ const customer = () => {
           </div>
         </div>
       </div>
-      <div>
+      <div className="ml-6">
         <p>법인명 (상호): Next 커머스 | 사업자등록번호 : 000-00-00000</p>
         <p>주소 : 서울특별시 동동구 동동로</p>
         <p>팩스 : 000 - 0000 - 0000 </p>
