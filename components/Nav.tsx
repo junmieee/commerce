@@ -138,6 +138,11 @@ const Nav: React.FC<NavProps> = ({
     icon: JSX.Element
   }
 
+  interface CommonMenu {
+    name: string
+    url: string
+  }
+
   const Menu: MenuItem[] = [
     { name: '장바구니', url: '/cart', icon: <AiOutlineShoppingCart /> },
     { name: '찜', url: '/wishlist', icon: <AiOutlineHeart /> },
@@ -159,6 +164,16 @@ const Nav: React.FC<NavProps> = ({
       ),
     },
   ]
+
+  const CommonMenu: CommonMenu[] = [
+    { name: '이용가이드', url: '/cart' },
+    { name: '공지사항', url: '/wishlist' },
+    {
+      name: '고객센터',
+      url: '/customer',
+    },
+  ]
+
   const onItemClick = (url: string) => {
     router.push(url)
     showNav()
@@ -175,6 +190,18 @@ const Nav: React.FC<NavProps> = ({
     } else if (info === '회원가입') {
       router.push('/auth/signin')
     }
+    showNav()
+  }
+
+  const onCommonMenuClick = (info: string) => {
+    // if (info === '이용가이드') {
+    //   router.push('/')
+    // } else if (info === '공지사항') {
+    //   router.push('/my')
+    // } else if (info === '고객센터') {
+    //   router.push('/customer')
+    // }
+    router.push(info)
     showNav()
   }
 
@@ -201,9 +228,17 @@ const Nav: React.FC<NavProps> = ({
           </CategoryList>
         </NavSection>
         <NavSection>
-          <StyledMenuName>이용가이드</StyledMenuName>
+          {CommonMenu.map((menu, index) => (
+            <StyledMenuName
+              key={index}
+              onClick={() => onCommonMenuClick(menu.url)}
+            >
+              {menu.name}
+            </StyledMenuName>
+          ))}
+          {/* <StyledMenuName>이용가이드</StyledMenuName>
           <StyledMenuName>공지사항</StyledMenuName>
-          <StyledMenuName>고객센터</StyledMenuName>
+          <StyledMenuName>고객센터</StyledMenuName> */}
         </NavSection>
         <NavSection>
           {isLoggedin.map((info, index) => (
