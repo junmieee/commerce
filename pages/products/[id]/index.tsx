@@ -71,7 +71,7 @@ export default function Products(props: {
       .then((data) => data.items)
   )
 
-  const { mutate } = useMutation<unknown, unknown, string, any>(
+  const { mutate: addHeart } = useMutation<unknown, unknown, string, any>(
     (productId) =>
       fetch('/api/update-wishlist', {
         method: 'POST',
@@ -154,14 +154,6 @@ export default function Products(props: {
   )
 
   const product = props.product
-
-  //   setEditorState(
-  //     EditorState.createWithContent(
-  //       convertFromRaw(JSON.parse(data.items.contents))
-  //     )
-  //   )
-  // } else {
-  //   setEditorState(EditorState.createEmpty())
 
   const isWished =
     wishlist != null && productId != null ? wishlist.includes(productId) : false
@@ -269,7 +261,7 @@ export default function Products(props: {
                 장바구니
               </Button>
               <Button
-                disabled={wishlist == null}
+                // disabled={wishlist == null}
                 leftIcon={
                   isWished ? (
                     <IconHeart size={20} stroke={1.5} />
@@ -277,7 +269,7 @@ export default function Products(props: {
                     <IconHeartbeat size={20} stroke={1.5} />
                   )
                 }
-                style={{ backgroundColor: isWished ? 'red' : 'grey' }}
+                style={{ backgroundColor: isWished ? '#e17055' : 'grey' }}
                 radius="xl"
                 size="md"
                 styles={{
@@ -289,7 +281,7 @@ export default function Products(props: {
                     router.push('/auth/login')
                     return
                   }
-                  mutate(String(productId))
+                  addHeart(String(productId))
                 }}
               >
                 찜하기

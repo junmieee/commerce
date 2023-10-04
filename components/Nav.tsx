@@ -185,7 +185,7 @@ const Nav: React.FC<NavProps> = ({
       })
     } else if (info === '마이페이지') {
       router.push('/my')
-    } else if (info === '로그인') {
+    } else if (info === '로그인 / 회원가입') {
       router.push('/auth/signin')
     } else if (info === '회원가입') {
       router.push('/auth/signin')
