@@ -33,6 +33,10 @@ export default function Products() {
   const [activePage, setPage] = useState(1)
   const [selectedCategory, setSelectedCategory] = useState<string>('-1')
   const [selectedFilter, setFilter] = useState<string | null>(FILTERS[0].value)
+  const [selectedFilterLabel, setFilterLabel] = useState<string | null>(
+    FILTERS[0].label
+  )
+
   const [keyward, setKeyword] = useState('')
   // const [selectedFilter, setSelectedFilter] = useState(FILTERS[0].value);
   const paginationStyles = {
@@ -179,16 +183,18 @@ export default function Products() {
                   lineHeight: 1.5,
                 },
                 root: {
-                  // 컨트롤들을 감싸는 래퍼에 대한 스타일 적용
-                  backgroundColor: '#EDF2F7', // 원하는 색상
+                  // 컨트롤들을 감싸는 래퍼에 대한 스타일 적용\// 원하는 색상
                 },
               }}
             />
-            {/* <Select value={selectedFilter} onChange={setFilter} data={FILTERS} /> */}
             <div className="md:w-24 right-0">
               <CustomSelect
                 value={selectedFilter}
-                onChange={(value) => setFilter(value)}
+                onChange={(value, label) => {
+                  setFilter(value)
+                  setFilterLabel(label)
+                }}
+                label={selectedFilterLabel}
                 data={FILTERS}
               />
 
