@@ -11,26 +11,33 @@ import { useQuery } from '@tanstack/react-query'
 export default function Products() {
   const [skip, setSkip] = useState(0)
   const [products, setProducts] = useState<products[]>([])
+  const [allProductsLoaded, setAllProductsLoaded] = useState(false)
   const router = useRouter()
   const { search } = router.query
-  console.log('search', search)
+  // console.log('search', search)
 
   useEffect(() => {
+    setAllProductsLoaded(false)
+    setSkip(0)
     fetch(`/api/get-products?skip=${0}&take=${TAKE}&contains=${search}`)
       .then((res) => res.json())
       .then((data) => setProducts(data.items))
   }, [search])
 
   const getProducts = useCallback(() => {
-    const next = skip + TAKE
-    fetch(`/api/get-products?skip=${0}&take=${TAKE}&contains=${search}`)
+    fetch(
+      `/api/get-products?skip=${skip + TAKE}&take=${TAKE}&contains=${search}`
+    )
       .then((res) => res.json())
       .then((data) => {
-        const list = products.concat(data.items)
-        setProducts(list)
+        if (data.items.length === 0) {
+          setAllProductsLoaded(true)
+        } else {
+          setProducts((prevProducts) => [...prevProducts, ...data.items])
+          setSkip(skip + TAKE)
+        }
       })
-    setSkip(next)
-  }, [skip, products, search])
+  }, [skip, search])
 
   return (
     <div className="px-36 mt-36 mb-36 mx-auto	">
@@ -66,12 +73,14 @@ export default function Products() {
               </div>
             ))}
           </div>
-          <button
-            className="w-full rounded-full mt-20 bg-zinc-200 p-4"
-            onClick={getProducts}
-          >
-            더보기
-          </button>
+          {!allProductsLoaded && (
+            <button
+              className="w-full rounded-full mt-20 bg-zinc-200 p-4"
+              onClick={getProducts}
+            >
+              더보기
+            </button>
+          )}
         </div>
       ) : (
         <div className="flex justify-center items-center h-60">
