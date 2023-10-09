@@ -140,7 +140,7 @@ export default function CartPage() {
               </span>
             </Row>
             <Button
-              style={{ backgroundColor: 'black' }}
+              style={{ backgroundColor: 'rgb(247, 159, 31)' }}
               radius="xl"
               size="md"
               styles={{

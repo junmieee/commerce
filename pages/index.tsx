@@ -204,7 +204,7 @@ export default function Products() {
         )}
 
         {products && (
-          <div className="w-full grid grid-cols-3 gap-5 2xl:grid-cols-4  ">
+          <div className="w-full grid grid-cols-3 gap-5 2xl:grid-cols-4 ">
             {products.map((item) => (
               <div
                 key={item.id}
@@ -217,7 +217,7 @@ export default function Products() {
                 }
               >
                 <Image
-                  className="rounded mb-2"
+                  className="rounded mb-2 cursor-pointer"
                   alt={item.name}
                   src={item.image_url ?? ''}
                   width={310}
