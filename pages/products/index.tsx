@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { useCallback } from 'react'
 import { TAKE } from 'constants/products'
 import { useRouter } from 'next/router'
-import { useQuery } from '@tanstack/react-query'
 
 export default function Products() {
   const [skip, setSkip] = useState(0)

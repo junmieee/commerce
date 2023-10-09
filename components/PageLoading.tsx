@@ -9,18 +9,18 @@ export default function PageLoading() {
         {mobileView ? (
           <div className="absolute top-10 right-10 p-4 rounded-md">
             <Image
-              src="/images/Bean Eater-1s-200px.svg"
+              src="/images/Dual Ball-1s-200px.svg"
               alt="로딩 중"
-              width={80}
+              width={100}
               height={100}
             />
           </div>
         ) : (
           <div className="absolute bottom-10 right-10 p-4 rounded-md">
             <Image
-              src="/images/Bean Eater-1s-200px.svg"
+              src="/images/Dual Ball-1s-200px.svg"
               alt="로딩 중"
-              width={80}
+              width={100}
               height={100}
             />
           </div>
