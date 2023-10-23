@@ -311,7 +311,10 @@ const Item = (props: CartItem) => {
       </div>
       <div className="flex ml-auto space-x-4">
         <span>{amount.toLocaleString('ko-kr')}원</span>
-        <IconX onClick={handleDelete} />
+        <IconX
+          className="border border-gray-300 rounded-sm p-1 cursor-pointer"
+          onClick={handleDelete}
+        />
       </div>
     </div>
   )
