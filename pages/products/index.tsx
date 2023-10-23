@@ -6,24 +6,33 @@ import Image from 'next/image'
 import { useCallback } from 'react'
 import { TAKE } from 'constants/products'
 import { useRouter } from 'next/router'
+import PageLoading from 'components/PageLoading'
 
 export default function Products() {
   const [skip, setSkip] = useState(0)
   const [products, setProducts] = useState<products[]>([])
   const [allProductsLoaded, setAllProductsLoaded] = useState(false)
+  const [loading, setLoading] = useState(false) // 로딩 상태 추가
   const router = useRouter()
   const { search } = router.query
-  // console.log('search', search)
 
   useEffect(() => {
     setAllProductsLoaded(false)
     setSkip(0)
+    setProducts([]) // 검색어 변경 시 기존 데이터 초기화
+    setLoading(true) // 로딩 시작
+
     fetch(`/api/get-products?skip=${0}&take=${TAKE}&contains=${search}`)
       .then((res) => res.json())
-      .then((data) => setProducts(data.items))
+      .then((data) => {
+        setProducts(data.items)
+        setLoading(false)
+      })
   }, [search])
 
   const getProducts = useCallback(() => {
+    setLoading(true)
+
     fetch(
       `/api/get-products?skip=${skip + TAKE}&take=${TAKE}&contains=${search}`
     )
@@ -35,11 +44,14 @@ export default function Products() {
           setProducts((prevProducts) => [...prevProducts, ...data.items])
           setSkip(skip + TAKE)
         }
+        setLoading(false)
       })
   }, [skip, search])
 
   return (
     <div className="px-36 mt-36 mb-36 mx-auto	">
+      {loading && <PageLoading />}
+
       {products && products.length > 0 ? (
         <div>
           <div className="grid lg:grid-cols-4 gap-5 md:grid-cols-3">
@@ -82,9 +94,11 @@ export default function Products() {
           )}
         </div>
       ) : (
-        <div className="flex justify-center items-center h-60">
-          <p className="font-medium text-lg	">찾으시는 제품이 없습니다.</p>
-        </div>
+        !loading && (
+          <div className="flex justify-center items-center h-60">
+            <p className="font-medium text-lg	">찾으시는 제품이 없습니다.</p>
+          </div>
+        )
       )}
     </div>
   )

@@ -46,9 +46,9 @@ const StyledIcon = styled.div`
     transform: translate(-50%, -50%);
     width: 38px;
     height: 38px;
-    border-radius: 50%;
+    border-radius: 30%;
     background-color: rgba(128, 128, 128, 0.2);
-    transition: ease-in-out 0.3s;
+    transition: ease-in-out 0.8s;
   }
 `
 
@@ -57,8 +57,6 @@ export default function Header() {
   const [keyward, setKeyword] = useState('')
 
   // const debouncedKeyword = useDebounce<string>(keyward)
-  const [selectedCategory, setSelectedCategory] = useState<string>('-1')
-  const debouncedKeyword = useDebounce<string>(keyward)
 
   const router = useRouter()
 
