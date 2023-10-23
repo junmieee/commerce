@@ -187,7 +187,7 @@ export default function Products() {
                 },
               }}
             />
-            <div className="md:w-24 right-0">
+            <div className="flex right-0">
               <CustomSelect
                 value={selectedFilter}
                 onChange={(value, label) => {

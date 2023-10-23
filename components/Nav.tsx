@@ -166,8 +166,8 @@ const Nav: React.FC<NavProps> = ({
   ]
 
   const CommonMenu: CommonMenu[] = [
-    { name: '이용가이드', url: '/cart' },
-    { name: '공지사항', url: '/wishlist' },
+    { name: '이용가이드', url: '/' },
+    { name: '공지사항', url: '/' },
     {
       name: '고객센터',
       url: '/customer',

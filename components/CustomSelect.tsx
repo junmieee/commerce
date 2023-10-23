@@ -20,7 +20,7 @@ const CustomSelect: React.FC<{
   }
 
   return (
-    <div className="relative flex">
+    <div className="relative ">
       <button
         onClick={handleButtonClick}
         id="states-button"
