@@ -178,12 +178,8 @@ export default function Products() {
               ]}
               styles={{
                 control: {
-                  // 컨트롤(버튼)에 대한 스타일 적용
                   fontSize: '0.875rem',
                   lineHeight: 1.5,
-                },
-                root: {
-                  // 컨트롤들을 감싸는 래퍼에 대한 스타일 적용\// 원하는 색상
                 },
               }}
             />
@@ -197,8 +193,6 @@ export default function Products() {
                 label={selectedFilterLabel}
                 data={FILTERS}
               />
-
-              <div className="flex"></div>
             </div>
           </div>
         )}

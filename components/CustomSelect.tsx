@@ -49,7 +49,7 @@ const CustomSelect: React.FC<{
       {isDropdownOpen && (
         <div
           id="dropdown-states"
-          className="z-10 absolute right-0 mt-12 bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
+          className="z-10 absolute right-0 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44"
         >
           {data.map((item) => (
             // <option key={item.value} value={item.value} className='bg-black	'>
