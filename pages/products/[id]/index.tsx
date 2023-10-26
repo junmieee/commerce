@@ -278,7 +278,7 @@ export default function Products(props: {
                 onClick={() => {
                   if (session == null) {
                     alert('로그인이 필요해요')
-                    router.push('/auth/login')
+                    router.push('/auth/signin')
                     return
                   }
                   addHeart(String(productId))
@@ -297,7 +297,7 @@ export default function Products(props: {
               onClick={() => {
                 if (session == null) {
                   alert('로그인이 필요해요')
-                  router.push('/auth/login')
+                  router.push('/auth/signin')
                   return
                 }
                 validate('order')
